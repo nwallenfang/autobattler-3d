@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hollow Knight
+* source:	https://sketchfab.com/3d-models/hollow-knight-4f13f00f30724505b9e49973168ea128
+* author:	Not Cockatiel Slayer 稲妻の柱 (https://sketchfab.com/Not-Cockatiel-Slayer)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hollow Knight" (https://sketchfab.com/3d-models/hollow-knight-4f13f00f30724505b9e49973168ea128) by Not Cockatiel Slayer 稲妻の柱 (https://sketchfab.com/Not-Cockatiel-Slayer) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
