@@ -1,6 +1,6 @@
 extends PhysicsMover3D
 
-export var move_acceleration = 520.0
+export var move_acceleration = 390.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 8000.0
 export var jump_total_number_of_frames = 2
@@ -15,7 +15,6 @@ enum State {
 
 var state = State.DEFAULT
 
-onready var spring_arm = $SpringArm
 onready var model = $PlayerModel
 
 var jump_frame_count := -1
@@ -51,10 +50,8 @@ func handle_input(delta):
 			jump_frame_count = -1
 
 	var look_direction := -Vector3(acceleration)
-	var look_position = self.global_transform.translated(-1 * look_direction.normalized())
 	var look_vec2 := Vector2(acceleration.x, acceleration.z)
-	var own_vec2 := Vector2(self.translation.x, self.translation.z)
-	var angle_between = own_vec2.angle_to(look_vec2)
+#	var own_vec2 := Vector2(self.translation.x, self.translation.z)
 	
 	var angular_velocity := 30.0
 	if look_vec2 != Vector2.ZERO and not start_jumping:
