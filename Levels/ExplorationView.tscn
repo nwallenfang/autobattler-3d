@@ -140,7 +140,7 @@ __meta__ = {
 [node name="GrassBlades" type="Spatial" parent="."]
 
 [node name="GrassBlade" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 0.0516065, 0, 1.2137, 0, 2.97269, 0, -1.38689, 0, 0.0451619, 4.36151, 0, 0 )
+transform = Transform( 0.0516065, 0, 1.2137, 0, 2.97269, 0, -1.38689, 0, 0.0451619, 4.36151, -0.180015, 6.85374 )
 
 [node name="GrassBlade2" parent="GrassBlades" instance=ExtResource( 11 )]
 transform = Transform( 1.01246, 0, -0.830697, 0, 2.97269, 0, 0.949237, 0, 0.886027, 13.3478, 0.085512, 4.02435 )
@@ -153,3 +153,5 @@ transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.0997
 
 [node name="GrassBlade4" parent="GrassBlades" instance=ExtResource( 11 )]
 transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.059832, -9.18971 )
+
+[editable path="GrassBlades/GrassBlade"]
