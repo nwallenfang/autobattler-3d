@@ -1,12 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Models/grass_blade/scene.gltf" type="PackedScene" id=1]
 [ext_resource path="res://Models/grass_blade/textures/lambert25_baseColor.jpeg" type="Texture" id=2]
 [ext_resource path="res://Models/grass_blade/textures/lambert25_metallicRoughness.png" type="Texture" id=3]
 [ext_resource path="res://Models/grass_blade/textures/lambert25_normal.png" type="Texture" id=4]
 [ext_resource path="res://Shaders/GrassBlade.gdshader" type="Shader" id=5]
+[ext_resource path="res://Environment/GrassBlade.gd" type="Script" id=6]
 
 [sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
 shader = ExtResource( 5 )
 shader_param/albedo = Color( 1, 1, 1, 1 )
 shader_param/specular = 0.5
@@ -20,15 +22,33 @@ shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/player_near = false
+shader_param/player_distance = 5.0
+shader_param/push_direction = null
 shader_param/texture_albedo = ExtResource( 2 )
 shader_param/texture_metallic = ExtResource( 3 )
 shader_param/texture_roughness = ExtResource( 3 )
 shader_param/texture_normal = ExtResource( 4 )
 
+[sub_resource type="CylinderShape" id=3]
+radius = 3.0
+
 [node name="GrassBlade" instance=ExtResource( 1 )]
+script = ExtResource( 6 )
 
 [node name="RootNode (gltf orientation matrix)" parent="." index="0"]
 transform = Transform( 12, 0.00303098, 0.00330834, -0.00534477, 1.50522, 11.4433, 0.00594094, -4.76805, 3.61253, 0.00330544, 11.7165, 2.44764 )
 
 [node name="defaultMaterial" parent="RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Collada visual scene group/blade10" index="0"]
+transform = Transform( 1, 5.82077e-11, -1.45519e-10, 1.45519e-11, 1, -1.49012e-08, 1.16415e-10, -3.57628e-07, 1, 0.053, 0, 5.96046e-08 )
 material/0 = SubResource( 2 )
+
+[node name="PlayerDetection" type="Area" parent="." index="1"]
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerDetection" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06867, 0 )
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_PlayerDetection_body_exited"]
