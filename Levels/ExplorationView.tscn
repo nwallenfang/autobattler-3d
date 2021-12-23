@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Textures/ground_dirt/ground_0036_normal_2k.png" type="Texture" id=1]
 [ext_resource path="res://Textures/ground_dirt/ground_0036_color_2k.jpg" type="Texture" id=2]
+[ext_resource path="res://Shaders/GrassBlade.gdshader" type="Shader" id=3]
 [ext_resource path="res://Textures/ground_dirt/ground_0036_ao_2k.jpg" type="Texture" id=4]
 [ext_resource path="res://Textures/ground_grass/ground_0032_color_2k.jpg" type="Texture" id=5]
 [ext_resource path="res://Textures/ground_grass/ground_0032_roughness_2k.jpg" type="Texture" id=6]
@@ -11,6 +12,12 @@
 [ext_resource path="res://Levels/ExplorationView.gd" type="Script" id=10]
 [ext_resource path="res://Models/GrassBlade.tscn" type="PackedScene" id=11]
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=12]
+[ext_resource path="res://Models/grass_blade/textures/lambert25_metallicRoughness.png" type="Texture" id=13]
+[ext_resource path="res://Models/grass_blade/textures/lambert25_baseColor.jpeg" type="Texture" id=14]
+[ext_resource path="res://Models/grass_blade/textures/lambert25_normal.png" type="Texture" id=15]
+[ext_resource path="res://Models/FunkySphere.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Levels/BattleView.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Levels/TraceCamera.gd" type="Script" id=18]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1000, 0.05, 50 )
@@ -63,6 +70,29 @@ ambient_light_energy = 0.5
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 423.538, 27.6547, 0.843098 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/metallic_texture_channel = Plane( 1, 0, 0, 0 )
+shader_param/roughness_texture_channel = Plane( 1, 0, 0, 0 )
+shader_param/normal_scale = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/player_near = false
+shader_param/player_distance = 5.0
+shader_param/player_direction = null
+shader_param/texture_albedo = ExtResource( 14 )
+shader_param/texture_metallic = ExtResource( 13 )
+shader_param/texture_roughness = ExtResource( 13 )
+shader_param/texture_normal = ExtResource( 15 )
 
 [node name="ExplorationView" type="Spatial"]
 script = ExtResource( 10 )
@@ -122,9 +152,11 @@ shape = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 0.973483, 0.228759, 0, -0.228759, 0.973483, 0, 8.8182, 15.4886 )
 current = true
 far = 250.0
+script = ExtResource( 18 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Camera"]
-transform = Transform( -0.925095, 0.369457, -0.0877605, 0.294555, 0.844011, 0.448199, -0.239661, -0.388776, 0.889615, 0, 12.1884, 21.294 )
+transform = Transform( -0.925095, 0.369456, -0.0877605, 0.294555, 0.844011, 0.448199, -0.239661, -0.388776, 0.889616, 0, 12.1884, 21.294 )
+visible = false
 light_energy = 1.5
 shadow_enabled = true
 shadow_contact = 1.0
@@ -137,10 +169,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="Camera"]
+
 [node name="GrassBlades" type="Spatial" parent="."]
 
 [node name="GrassBlade" parent="GrassBlades" instance=ExtResource( 11 )]
 transform = Transform( 0.0516065, 0, 1.2137, 0, 2.97269, 0, -1.38689, 0, 0.0451619, 4.36151, -0.180015, 6.85374 )
+
+[node name="defaultMaterial" parent="GrassBlades/GrassBlade/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Collada visual scene group/blade10" index="0"]
+material/0 = SubResource( 8 )
 
 [node name="GrassBlade2" parent="GrassBlades" instance=ExtResource( 11 )]
 transform = Transform( 1.01246, 0, -0.830697, 0, 2.97269, 0, 0.949237, 0, 0.886027, 13.3478, 0.085512, 4.02435 )
@@ -154,4 +191,16 @@ transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.0997
 [node name="GrassBlade4" parent="GrassBlades" instance=ExtResource( 11 )]
 transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.059832, -9.18971 )
 
+[node name="FunkySphere" parent="." instance=ExtResource( 16 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 25.8895, 1.95539, 0 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="BattleView" parent="." instance=ExtResource( 17 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 15.8121 )
+visible = false
+
+[connection signal="body_entered" from="FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
+
 [editable path="GrassBlades/GrassBlade"]
+[editable path="FunkySphere"]

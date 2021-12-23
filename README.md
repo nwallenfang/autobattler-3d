@@ -11,5 +11,6 @@ Some stuff I would like to look into in this project:
   - used to mix grass and dirt textures
 - [ ] Using 3D Particle shaders
   - used for bullets / magic in combat
-- [ ] Using Vertex displacement shaders
+- [ ] Making pretty clouds
+- [x] Using Vertex displacement shaders
   - used when walking through tall grass in exploration view

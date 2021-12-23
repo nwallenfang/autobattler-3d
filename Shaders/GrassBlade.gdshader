@@ -23,13 +23,18 @@ uniform vec3 uv2_offset;
 uniform bool player_near = false;
 // I dont feel like we will be able to afford to update this every frame, maybe every 10 frames or something
 uniform float player_distance = 5.0;
-uniform vec2 push_direction; // x, z, should be perpendicular to player movement direction
+uniform vec2 player_direction; // x, z, should be perpendicular to player movement direction
 // also the wind shouldn' t affect the grass when player is near
-
 
 void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
-	if(!player_near) {
+	if(player_near) {
+		float magnitude = 0.60 * (1.0 - player_distance/3.0);
+		float mask = float(VERTEX.y > -0.95);
+		float height = 0.5 * (VERTEX.y + 1.0);
+		VERTEX.x += mask * magnitude * player_direction.x * height;
+		VERTEX.z += mask * magnitude * player_direction.y * height;
+	} else {
 		float mask = float(VERTEX.y > -0.8);
 		float strength = 1.0;
 		float height = 0.5 * (VERTEX.y + 1.0);

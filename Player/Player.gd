@@ -1,5 +1,7 @@
 extends PhysicsMover3D
 
+class_name Player
+
 export var move_acceleration = 390.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 8000.0

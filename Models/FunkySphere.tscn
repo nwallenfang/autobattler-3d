@@ -1,23 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Shader/normal.gdshader" type="Shader" id=1]
-[ext_resource path="res://Shader/selection_transparent.gdshader" type="Shader" id=2]
+[ext_resource path="res://Shaders/ColorModulate.gdshader" type="Shader" id=1]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 2.5
 height = 5.0
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=15]
 shader = ExtResource( 1 )
-
-[sub_resource type="CylinderMesh" id=12]
-top_radius = 2.5
-bottom_radius = 2.5
-height = 3.0
-
-[sub_resource type="ShaderMaterial" id=14]
-shader = ExtResource( 2 )
-shader_param/albedo = Color( 0.494118, 0.556863, 0.541176, 1 )
+shader_param/albedo = Color( 0.168627, 0.764706, 0.0823529, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
 shader_param/roughness = 1.0
@@ -27,16 +18,30 @@ shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 
+[sub_resource type="CylinderMesh" id=12]
+top_radius = 2.5
+bottom_radius = 2.5
+height = 3.0
+
+[sub_resource type="SphereShape" id=16]
+radius = 5.0
+
 [node name="FunkySphere" type="Spatial"]
 
 [node name="Sphere" type="MeshInstance" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4.8642, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 3 )
+material/0 = SubResource( 15 )
 
 [node name="Cylinder" type="MeshInstance" parent="."]
 transform = Transform( 2, 0, 0, 0, 1.0366, 0, 0, 0, 2, -0.0863754, 1.99996, 0 )
 mesh = SubResource( 12 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 14 )
+material/0 = null
+
+[node name="CollectDetection" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="CollectDetection"]
+transform = Transform( -0.851752, -0.17658, -0.493293, -0.0331333, -0.92146, 0.387058, -0.522897, 0.346022, 0.779004, 0, 4.59866, 0 )
+shape = SubResource( 16 )

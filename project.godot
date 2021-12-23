@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Camera",
+"class": "CameraTween",
+"language": "GDScript",
+"path": "res://Logic/CameraTween.gd"
+}, {
 "base": "KinematicBody",
 "class": "PhysicsMover3D",
 "language": "GDScript",
 "path": "res://Player/PhysicsMover3D.gd"
+}, {
+"base": "PhysicsMover3D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
 } ]
 _global_script_class_icons={
-"PhysicsMover3D": ""
+"CameraTween": "",
+"PhysicsMover3D": "",
+"Player": ""
 }
 
 [application]
@@ -23,6 +35,10 @@ _global_script_class_icons={
 config/name="autobattler-3d"
 run/main_scene="res://Levels/ExplorationView.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Game="*res://Logic/Game.tscn"
 
 [debug]
 
