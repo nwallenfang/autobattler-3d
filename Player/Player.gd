@@ -4,8 +4,8 @@ class_name Player
 
 export var move_acceleration = 390.0
 export var air_acceleration = 120.0
-export var jump_total_acceleration = 8000.0
-export var jump_total_number_of_frames = 2
+export var jump_total_acceleration = 7200.0
+export var jump_total_number_of_frames = 3
 export var gravity = -25.0
 
 export var ground_dampening = 0.7
@@ -38,7 +38,6 @@ func handle_input(delta):
 	var start_jumping  = is_on_floor() and Input.is_action_just_pressed("jump")
 	if start_jumping:
 		jump_frame_count = 0
-
 		# set snap vector in super class
 		snap_vector = Vector3.ZERO 
 		

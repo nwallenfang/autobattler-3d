@@ -3,7 +3,8 @@ extends KinematicBody
 class_name PhysicsMover3D
 
 # doesn't have to be this value, it's just for readability
-const EXPECTED_FPS = 60
+const EXPECTED_FPS := 60
+const VELOCITY_CUTOFF := 0.05
 
 export var FRICTION := 0.85
 export var OLD_DEFAULT_ACC_STRENGTH := 3500.0
@@ -48,7 +49,7 @@ func get_in_plane_acceleration() -> Vector2:
 	return Vector2(acceleration.x, acceleration.z)
 
 func execute_movement(delta: float) -> void:
-	if gravity_enabled:
+	if gravity_enabled and not is_on_floor():
 		add_acceleration(-GRAVITY * Vector3.UP)
 	velocity += acceleration * delta
 	# apply friction if on the floor
@@ -58,7 +59,9 @@ func execute_movement(delta: float) -> void:
 	var just_landed = is_on_floor() and snap_vector == Vector3.ZERO
 	if just_landed:
 		snap_vector = Vector3.DOWN
-
+	print(velocity.length())
 	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP)
 
+	if velocity.length() < VELOCITY_CUTOFF:
+		velocity = Vector3.ZERO
 	acceleration = Vector3.ZERO 

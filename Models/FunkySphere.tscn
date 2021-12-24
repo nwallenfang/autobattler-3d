@@ -1,30 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Shaders/ColorModulate.gdshader" type="Shader" id=1]
+[ext_resource path="res://Shaders/SphereChangingColor.tres" type="Material" id=1]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 2.5
 height = 5.0
 
-[sub_resource type="ShaderMaterial" id=15]
-shader = ExtResource( 1 )
-shader_param/albedo = Color( 0.168627, 0.764706, 0.0823529, 1 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.0
-shader_param/roughness = 1.0
-shader_param/point_size = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-
-[sub_resource type="CylinderMesh" id=12]
-top_radius = 2.5
-bottom_radius = 2.5
-height = 3.0
-
 [sub_resource type="SphereShape" id=16]
 radius = 5.0
+
+[sub_resource type="Shader" id=19]
+code = "shader_type particles;
+
+void vertex() {
+  if (RESTART) {
+    //Initialization code goes here
+  } else {
+    //per-frame code goes here
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id=20]
+shader = SubResource( 19 )
+
+[sub_resource type="CubeMesh" id=18]
+material = ExtResource( 1 )
+size = Vector3( 1, 0.5, 3 )
 
 [node name="FunkySphere" type="Spatial"]
 
@@ -32,16 +33,16 @@ radius = 5.0
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4.8642, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 15 )
-
-[node name="Cylinder" type="MeshInstance" parent="."]
-transform = Transform( 2, 0, 0, 0, 1.0366, 0, 0, 0, 2, -0.0863754, 1.99996, 0 )
-mesh = SubResource( 12 )
-skeleton = NodePath("../..")
-material/0 = null
+material/0 = ExtResource( 1 )
 
 [node name="CollectDetection" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="CollectDetection"]
 transform = Transform( -0.851752, -0.17658, -0.493293, -0.0331333, -0.92146, 0.387058, -0.522897, 0.346022, 0.779004, 0, 4.59866, 0 )
 shape = SubResource( 16 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1.27335, 0, 0, 0, 1.27335, 0, 0, 0, 1.27335, 0, 5.15251, 0 )
+amount = 12
+process_material = SubResource( 20 )
+draw_pass_1 = SubResource( 18 )
