@@ -59,7 +59,6 @@ func execute_movement(delta: float) -> void:
 	var just_landed = is_on_floor() and snap_vector == Vector3.ZERO
 	if just_landed:
 		snap_vector = Vector3.DOWN
-	print(velocity.length())
 	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP)
 
 	if velocity.length() < VELOCITY_CUTOFF:

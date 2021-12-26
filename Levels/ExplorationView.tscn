@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Textures/ground_dirt/ground_0036_normal_2k.png" type="Texture" id=1]
 [ext_resource path="res://Textures/ground_dirt/ground_0036_color_2k.jpg" type="Texture" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://Models/FunkySphere.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Levels/BattleView.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Levels/TraceCamera.gd" type="Script" id=18]
+[ext_resource path="res://Environment/Clouds.gd" type="Script" id=19]
+[ext_resource path="res://Environment/Cloud.tscn" type="PackedScene" id=20]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1000, 0.05, 50 )
@@ -249,13 +251,37 @@ transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.0997
 transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -11.4996, -1.0046 )
 
 [node name="FunkySphere" parent="." instance=ExtResource( 16 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 25.8895, 1.95539, 0 )
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 25.8895, 1.95539, 0 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="BattleView" parent="." instance=ExtResource( 17 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 15.8121 )
 visible = false
+
+[node name="Clouds" type="Spatial" parent="."]
+script = ExtResource( 19 )
+
+[node name="Cloud" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 22.4793, 0 )
+
+[node name="Cloud5" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, 11.773 )
+
+[node name="Cloud6" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, -11.4356 )
+
+[node name="Cloud7" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.4985, 22.4793, -2.50792 )
+
+[node name="Cloud2" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.2817, 22.4793, 0 )
+
+[node name="Cloud3" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, -11.8128 )
+
+[node name="Cloud4" parent="Clouds" instance=ExtResource( 20 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, 6.5652 )
 
 [connection signal="body_entered" from="FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
 
