@@ -264,24 +264,31 @@ script = ExtResource( 19 )
 
 [node name="Cloud" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 22.4793, 0 )
+visible = false
 
 [node name="Cloud5" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, 11.773 )
+visible = false
 
 [node name="Cloud6" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, -11.4356 )
+visible = false
 
 [node name="Cloud7" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.4985, 22.4793, -2.50792 )
+visible = false
 
 [node name="Cloud2" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.2817, 22.4793, 0 )
+visible = false
 
 [node name="Cloud3" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, -11.8128 )
+visible = false
 
 [node name="Cloud4" parent="Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, 6.5652 )
+visible = false
 
 [connection signal="body_entered" from="FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
 

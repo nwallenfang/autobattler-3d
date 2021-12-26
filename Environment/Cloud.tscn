@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [sub_resource type="Shader" id=6]
 code = "shader_type particles;
@@ -83,13 +83,22 @@ void fragment() {
 
 //	ALBEDO = sampled_color;
 	
-	if(world_normal.y < 0.0) {
-		ALBEDO = sampled_color - vec3(0.08);
-	}
+//	if(world_normal.y < 0.0) {
+//		ALBEDO = sampled_color - vec3(0.08);
+//	}
 }"
+
+[sub_resource type="Gradient" id=8]
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 8 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+shader_param/diameter = 100.0
+shader_param/band_size = 0.1
+shader_param/interp_value = 0.0
+shader_param/sky_gradient = SubResource( 5 )
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
@@ -99,6 +108,8 @@ material = SubResource( 2 )
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.243023, 0.55596, 0 )
 amount = 90
-lifetime = 20.55
+lifetime = 4000.0
+speed_scale = 64.0
+fixed_fps = 30
 process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 3 )
