@@ -167,7 +167,7 @@ far = 250.0
 script = ExtResource( 18 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Camera"]
-transform = Transform( -0.925095, 0.369456, -0.0877605, 0.294555, 0.844011, 0.448199, -0.239661, -0.388776, 0.889616, 0, 12.1884, 21.294 )
+transform = Transform( -0.727872, 0.567064, -0.38554, 0.373389, 0.799347, 0.470772, -0.575138, -0.198705, 0.793557, 0, 12.1884, 21.294 )
 light_energy = 1.2
 shadow_enabled = true
 shadow_contact = 1.0
