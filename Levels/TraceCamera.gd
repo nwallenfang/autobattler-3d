@@ -23,7 +23,6 @@ func interpolate_rotation(weight: float):
 	
 var target_transform: Transform
 func interpolate_transform(weight: float):
-	print(weight)
 	self.transform = self.transform.interpolate_with(target_transform, 2.0 * weight)
 
 
@@ -46,7 +45,7 @@ func start_transition_translate(target_transform_arg: Transform):
 	var duration = transform.origin.distance_to(target_transform_arg.origin) / velocity
 	print("c'est dur ça", duration)
 	$Tween.reset_all()  
-	$Tween.interpolate_method(self, "interpolate_transform", 0.0, 0.5, duration)
+	$Tween.interpolate_method(self, "interpolate_transform", 0.0, 1.0, 1.2)
 	$Tween.start()
 	transitioning = true
 		
@@ -63,6 +62,5 @@ func _process(_delta: float) -> void:
 
 
 func _on_Tween_tween_all_completed() -> void:
-	print("tontonton")
 	emit_signal("transition_completed")
 	
