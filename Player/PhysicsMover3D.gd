@@ -2,9 +2,8 @@ extends KinematicBody
 
 class_name PhysicsMover3D
 
-# doesn't have to be this value, it's just for readability
+# no problem if the game runs at a different FPS, it's just for readability
 const EXPECTED_FPS := 60
-const VELOCITY_CUTOFF := 0.05
 
 export var FRICTION := 0.85
 export var OLD_DEFAULT_ACC_STRENGTH := 3500.0
@@ -40,7 +39,7 @@ func accelerate_and_move(delta: float, acceleration_direction: Vector3 = Vector3
 	else:
 		added_acc = acceleration_direction
 		
-	acceleration += added_acc	
+	acceleration += added_acc
 		
 	execute_movement(delta)
 
@@ -61,6 +60,4 @@ func execute_movement(delta: float) -> void:
 		snap_vector = Vector3.DOWN
 	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP)
 
-	if velocity.length() < VELOCITY_CUTOFF:
-		velocity = Vector3.ZERO
 	acceleration = Vector3.ZERO 

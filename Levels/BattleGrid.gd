@@ -8,7 +8,7 @@ export var number_of_cols = 8  # x in 3D
 onready var total_dim: Vector2
 
 func _ready() -> void:
-	var grass_mesh = $Ground/Grass.mesh
+	var grass_mesh = $Ground/GrassTexture.mesh
 	var aabb_size = grass_mesh.get_aabb().size
 	total_dim = Vector2(aabb_size.z, aabb_size.x)
 	

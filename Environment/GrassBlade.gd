@@ -16,7 +16,7 @@ func _on_PlayerDetection_body_entered(body):
 		material.set_shader_param("player_direction", Vector2(direction.x, direction.z).rotated(PI))
 		$UpdateTimer.start()
 
-func _on_PlayerDetection_body_exited(body: Node) -> void:
+func _on_PlayerDetection_body_exited(_body: Node) -> void:
 	material.set_shader_param("player_near", false)
 	$UpdateTimer.stop()
 

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node
 
 var speed = 10.8;
 

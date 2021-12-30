@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Textures/ground_grass/ground_0032_roughness_2k.jpg" type="Texture" id=1]
 [ext_resource path="res://Levels/TraceCamera.gd" type="Script" id=2]
 [ext_resource path="res://Textures/ground_dirt/ground_0036_ao_2k.jpg" type="Texture" id=3]
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=4]
 [ext_resource path="res://Levels/BattleGrid.gd" type="Script" id=5]
+[ext_resource path="res://Shaders/Grid.gdshader" type="Shader" id=6]
 [ext_resource path="res://Textures/ground_grass/ground_0032_normal_2k.png" type="Texture" id=7]
 [ext_resource path="res://Textures/ground_grass/ground_0032_color_2k.jpg" type="Texture" id=8]
 
@@ -29,6 +30,29 @@ uv1_scale = Vector3( 5, 5, 10 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 30, 1, 30 )
 
+[sub_resource type="QuadMesh" id=5]
+size = Vector2( 60, 60 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 6 )
+shader_param/albedo = Color( 1, 1, 1, 0.952941 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/alpha_scissor_threshold = 0.98
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/columns = 10.0
+shader_param/rows = 10.0
+shader_param/border_width = 0.05
+shader_param/border_color = Color( 0.482353, 0.482353, 0.482353, 1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0, 0.176471, 0.054902, 1 )
+
 [node name="BattleGrid" type="Spatial"]
 script = ExtResource( 5 )
 
@@ -37,7 +61,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Grass" type="MeshInstance" parent="Ground"]
+[node name="GrassTexture" type="MeshInstance" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 0.05, 0, 0, 0, 1, 30, 0, 30 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
@@ -50,37 +74,47 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00116551, 0, 0.0299245 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -1, 30 )
 shape = SubResource( 4 )
 
-[node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 31, -1, 0, 30.832 )
+[node name="GridQuad" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 29.606, 0.1, 30.306 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
 
-[node name="CSGBox2" type="CSGBox" parent="."]
+[node name="Bounds" type="Spatial" parent="."]
+
+[node name="BoundLeft" type="CSGBox" parent="Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 31, -1.64475, 0.187933, 30.2514 )
+material = SubResource( 7 )
+
+[node name="BoundUpper" type="CSGBox" parent="Bounds"]
 transform = Transform( -4.37114e-08, 0, 31, 0, 1, 0, -1, 0, -1.35505e-06, 30.736, 0, -1.12107 )
+material = SubResource( 7 )
 
-[node name="CSGBox3" type="CSGBox" parent="."]
+[node name="BoundRight" type="CSGBox" parent="Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 31, 61.0401, 0, 31.0033 )
+material = SubResource( 7 )
 
-[node name="CSGBox4" type="CSGBox" parent="."]
-transform = Transform( -4.37114e-08, 0, -31, 0, 1, 0, 1, 0, -1.35505e-06, 31, 0, 61 )
+[node name="BoundLower" type="CSGBox" parent="Bounds"]
+transform = Transform( -4.37114e-08, 0, -31, 0, 1, 0, 1, 0, -1.35505e-06, 30.7957, 0, 61.6111 )
+material = SubResource( 7 )
 
-[node name="CamTilt" type="Position3D" parent="."]
+[node name="CamPivot" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 30, 0, 30 )
 
-[node name="Camera" type="Camera" parent="CamTilt"]
+[node name="Camera" type="Camera" parent="CamPivot"]
 transform = Transform( 1, 0, 0, 0, 0.927184, -0.374607, 0, 0.374607, 0.927184, 0, -12.124, 35 )
 projection = 1
-current = true
 fov = 90.0
 size = 50.0
 near = 0.25
 script = ExtResource( 2 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="CamTilt/Camera"]
+[node name="DirectionalLight" type="DirectionalLight" parent="CamPivot/Camera"]
 transform = Transform( -0.727872, 0.567064, -0.38554, 0.373389, 0.799347, 0.470772, -0.575138, -0.198705, 0.793557, 0, 12.1884, 21.294 )
 light_energy = 1.2
 shadow_enabled = true
 shadow_contact = 1.0
 
-[node name="FPSCounter" type="Label" parent="CamTilt/Camera"]
+[node name="FPSCounter" type="Label" parent="CamPivot/Camera"]
 margin_right = 40.0
 margin_bottom = 14.0
 script = ExtResource( 4 )
@@ -88,6 +122,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tween" type="Tween" parent="CamTilt/Camera"]
+[node name="Tween" type="Tween" parent="CamPivot/Camera"]
 
 [connection signal="input_event" from="Ground/ClickArea" to="." method="_on_ClickArea_input_event"]

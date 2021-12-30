@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Textures/ground_dirt/ground_0036_normal_2k.png" type="Texture" id=1]
 [ext_resource path="res://Textures/ground_dirt/ground_0036_color_2k.jpg" type="Texture" id=2]
@@ -16,10 +16,49 @@
 [ext_resource path="res://Models/grass_blade/textures/lambert25_baseColor.jpeg" type="Texture" id=14]
 [ext_resource path="res://Models/grass_blade/textures/lambert25_normal.png" type="Texture" id=15]
 [ext_resource path="res://Models/FunkySphere.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Levels/BattleGrid.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Levels/TraceCamera.gd" type="Script" id=18]
 [ext_resource path="res://Environment/Clouds.gd" type="Script" id=19]
 [ext_resource path="res://Environment/Cloud.tscn" type="PackedScene" id=20]
+
+[sub_resource type="ProceduralSky" id=9]
+sky_top_color = Color( 0.1075, 0.317125, 0.43, 1 )
+sky_horizon_color = Color( 0.713726, 0.537255, 0.00392157, 1 )
+sun_color = Color( 0.368627, 0.329412, 0, 1 )
+sun_latitude = 2.23
+sun_energy = 3.0
+
+[sub_resource type="Environment" id=4]
+background_mode = 2
+background_sky = SubResource( 9 )
+background_sky_custom_fov = 115.5
+ambient_light_color = Color( 0.8, 0.839216, 0.921569, 1 )
+ambient_light_energy = 0.5
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 423.538, 27.6547, 0.843098 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/metallic_texture_channel = Plane( 1, 0, 0, 0 )
+shader_param/roughness_texture_channel = Plane( 1, 0, 0, 0 )
+shader_param/normal_scale = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/player_near = false
+shader_param/player_distance = 5.0
+shader_param/player_direction = null
+shader_param/texture_albedo = ExtResource( 14 )
+shader_param/texture_metallic = ExtResource( 13 )
+shader_param/texture_roughness = ExtResource( 13 )
+shader_param/texture_normal = ExtResource( 15 )
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1000, 0.05, 50 )
@@ -66,46 +105,6 @@ ao_on_uv2 = false
 ao_texture_channel = 0
 uv1_scale = Vector3( 30, 1, 64 )
 
-[sub_resource type="ProceduralSky" id=9]
-sky_top_color = Color( 0.1075, 0.317125, 0.43, 1 )
-sky_horizon_color = Color( 0.713726, 0.537255, 0.00392157, 1 )
-sun_color = Color( 0.368627, 0.329412, 0, 1 )
-sun_latitude = 2.23
-sun_energy = 3.0
-
-[sub_resource type="Environment" id=4]
-background_mode = 2
-background_sky = SubResource( 9 )
-background_sky_custom_fov = 115.5
-ambient_light_color = Color( 0.8, 0.839216, 0.921569, 1 )
-ambient_light_energy = 0.5
-
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 423.538, 27.6547, 0.843098 )
-
-[sub_resource type="ShaderMaterial" id=8]
-resource_local_to_scene = true
-shader = ExtResource( 3 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.0
-shader_param/roughness = 1.0
-shader_param/point_size = 1.0
-shader_param/metallic_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/roughness_texture_channel = Plane( 1, 0, 0, 0 )
-shader_param/normal_scale = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/player_near = false
-shader_param/player_distance = 5.0
-shader_param/player_direction = null
-shader_param/texture_albedo = ExtResource( 14 )
-shader_param/texture_metallic = ExtResource( 13 )
-shader_param/texture_roughness = ExtResource( 13 )
-shader_param/texture_normal = ExtResource( 15 )
-
 [node name="ExplorationView" type="Spatial"]
 script = ExtResource( 10 )
 __meta__ = {
@@ -118,46 +117,24 @@ __meta__ = {
 "
 }
 
-[node name="Ground" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.325068, 0, -0.05, 2.03135 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
-
-[node name="StaticBody" type="StaticBody" parent="Ground"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Ground/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
-shape = SubResource( 3 )
-
-[node name="Grass" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -31.0305 )
-mesh = SubResource( 6 )
-material/0 = SubResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="Grass"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Grass/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
-shape = SubResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 9 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
 
-[node name="BackWall" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -57.8828 )
-
-[node name="CollisionShape" type="CollisionShape" parent="BackWall"]
-transform = Transform( 0.705642, 0, 0, 0, 1, 0, 0, 0, 2.51441, 2.42122, 0, -1.58891 )
-shape = SubResource( 5 )
+[node name="Player" parent="." instance=ExtResource( 9 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="FrontWall" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00126648, 0.314137, -27.3757 )
 
 [node name="CollisionShape" type="CollisionShape" parent="FrontWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42.0771 )
+shape = SubResource( 5 )
+
+[node name="BackWall" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -57.8828 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BackWall"]
+transform = Transform( 0.705642, 0, 0, 0, 1, 0, 0, 0, 2.51441, 2.42122, 0, -1.58891 )
 shape = SubResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
@@ -182,115 +159,143 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="Camera"]
 
-[node name="GrassBlades" type="Spatial" parent="."]
-
-[node name="GrassBlade" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 0.0516065, 0, 1.2137, 0, 2.97269, 0, -1.38689, 0, 0.0451619, 4.36151, -0.180015, 6.85374 )
-
-[node name="defaultMaterial" parent="GrassBlades/GrassBlade/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Collada visual scene group/blade10" index="0"]
-material/0 = SubResource( 8 )
-
-[node name="GrassBlade2" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.01246, 0, -0.830697, 0, 2.97269, 0, 0.949237, 0, 0.886027, 13.3478, 0.085512, 4.02435 )
-
-[node name="GrassBlade3" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.0810081, 0 )
-
-[node name="GrassBlade5" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 9.9299, 0.0810081, -4.27714 )
-
-[node name="GrassBlade4" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.059832, -9.18971 )
-
-[node name="GrassBlade6" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.23512, -3.345 )
-
-[node name="GrassBlade7" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 12.0079, 4.38691, -7.62214 )
-
-[node name="GrassBlade8" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.247336, -12.5347 )
-
-[node name="GrassBlade9" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 2.83664, -0.224884, -20.5308 )
-
-[node name="GrassBlade10" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.33504, 2.99567, -24.8079 )
-
-[node name="GrassBlade11" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 2.83664, -0.228661, -29.7205 )
-
-[node name="GrassBlade12" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.19601, -13.2014 )
-
-[node name="GrassBlade13" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.227499, -17.4785 )
-
-[node name="GrassBlade14" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.241271, -22.3911 )
-
-[node name="GrassBlade15" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.228893, -8.42878 )
-
-[node name="GrassBlade16" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.197792, -12.7059 )
-
-[node name="GrassBlade17" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -11.4996, -17.6185 )
-
-[node name="GrassBlade18" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.241271, -5.7772 )
-
-[node name="GrassBlade19" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.228893, 8.18511 )
-
-[node name="GrassBlade20" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.197792, 3.90797 )
-
-[node name="GrassBlade21" parent="GrassBlades" instance=ExtResource( 11 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -11.4996, -1.0046 )
-
-[node name="FunkySphere" parent="." instance=ExtResource( 16 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 25.8895, 1.95539, 0 )
-
 [node name="Tween" type="Tween" parent="."]
 
-[node name="BattleView" parent="." instance=ExtResource( 17 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 15.8121 )
-visible = false
+[node name="Environment" type="Node" parent="."]
 
-[node name="Clouds" type="Spatial" parent="."]
+[node name="Clouds" type="Node" parent="Environment"]
 script = ExtResource( 19 )
 
-[node name="Cloud" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 22.4793, 0 )
 visible = false
 
-[node name="Cloud5" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud5" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, 11.773 )
 visible = false
 
-[node name="Cloud6" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud6" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.7277, 22.4793, -11.4356 )
 visible = false
 
-[node name="Cloud7" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud7" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.4985, 22.4793, -2.50792 )
 visible = false
 
-[node name="Cloud2" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud2" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.2817, 22.4793, 0 )
 visible = false
 
-[node name="Cloud3" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud3" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, -11.8128 )
 visible = false
 
-[node name="Cloud4" parent="Clouds" instance=ExtResource( 20 )]
+[node name="Cloud4" parent="Environment/Clouds" instance=ExtResource( 20 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.4292, 22.4793, 6.5652 )
 visible = false
 
-[connection signal="body_entered" from="FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
+[node name="GrassBlades" type="Spatial" parent="Environment"]
 
-[editable path="GrassBlades/GrassBlade"]
-[editable path="FunkySphere"]
+[node name="GrassBlade" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 0.0516065, 0, 1.2137, 0, 2.97269, 0, -1.38689, 0, 0.0451619, 4.36151, -0.180015, 6.85374 )
+
+[node name="defaultMaterial" parent="Environment/GrassBlades/GrassBlade/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/Collada visual scene group/blade10" index="0"]
+material/0 = SubResource( 8 )
+
+[node name="GrassBlade2" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.01246, 0, -0.830697, 0, 2.97269, 0, 0.949237, 0, 0.886027, 13.3478, 0.085512, 4.02435 )
+
+[node name="GrassBlade3" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.0810081, 0 )
+
+[node name="GrassBlade5" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 9.9299, 0.0810081, -4.27714 )
+
+[node name="GrassBlade4" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 5.4315, 0.059832, -9.18971 )
+
+[node name="GrassBlade6" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.23512, -3.345 )
+
+[node name="GrassBlade7" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 12.0079, 4.38691, -7.62214 )
+
+[node name="GrassBlade8" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.247336, -12.5347 )
+
+[node name="GrassBlade9" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 2.83664, -0.224884, -20.5308 )
+
+[node name="GrassBlade10" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.33504, -0.364407, -24.8079 )
+
+[node name="GrassBlade11" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 2.83664, -0.228661, -29.7205 )
+
+[node name="GrassBlade12" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.19601, -13.2014 )
+
+[node name="GrassBlade13" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.227499, -17.4785 )
+
+[node name="GrassBlade14" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.241271, -22.3911 )
+
+[node name="GrassBlade15" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.228893, -8.42878 )
+
+[node name="GrassBlade16" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.197792, -12.7059 )
+
+[node name="GrassBlade17" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.766054, -17.6185 )
+
+[node name="GrassBlade18" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96057, -0.241271, -5.7772 )
+
+[node name="GrassBlade19" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.228893, 8.18511 )
+
+[node name="GrassBlade20" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 13.459, -0.197792, 3.90797 )
+
+[node name="GrassBlade21" parent="Environment/GrassBlades" instance=ExtResource( 11 )]
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 8.96058, -0.450061, -1.0046 )
+
+[node name="Ground" type="MeshInstance" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.325068, 0, -0.05, 2.03135 )
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Environment/Ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/Ground/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+shape = SubResource( 3 )
+
+[node name="Grass" type="MeshInstance" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -31.0305 )
+mesh = SubResource( 6 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 7 )
+
+[node name="StaticBody" type="StaticBody" parent="Environment/Grass"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/Grass/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+shape = SubResource( 3 )
+
+[node name="Collectibles" type="Node" parent="."]
+
+[node name="FunkySphere" parent="Collectibles" instance=ExtResource( 16 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 56.3064, 1.95539, 0 )
+
+[node name="Sphere" parent="Collectibles/FunkySphere" index="0"]
+skeleton = NodePath("../../..")
+
+[connection signal="tween_all_completed" from="Camera/Tween" to="Camera" method="_on_Tween_tween_all_completed"]
+[connection signal="body_entered" from="Collectibles/FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
+
+[editable path="Environment/GrassBlades/GrassBlade"]
+[editable path="Collectibles/FunkySphere"]
