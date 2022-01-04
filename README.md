@@ -12,5 +12,7 @@ Some stuff I would like to look into in this project:
 - [ ] Using 3D Particle shaders
   - used for bullets / magic in combat
 - [ ] Making pretty clouds
+- [ ] Transparency type shader effect
+  - Used when the player model is covered by environment
 - [x] Using Vertex displacement shaders
   - used when walking through tall grass in exploration view
