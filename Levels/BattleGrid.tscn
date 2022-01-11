@@ -82,20 +82,21 @@ material = SubResource( 7 )
 [node name="CamPivot" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 30, 0, 30 )
 
-[node name="Camera" type="Camera" parent="CamPivot"]
+[node name="OrthoCamera" type="Camera" parent="CamPivot"]
 transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -1.19209e-07, 1, 0, 1.246, 33 )
+projection = 1
 fov = 90.0
 size = 50.0
 near = 0.25
 script = ExtResource( 2 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="CamPivot/Camera"]
+[node name="DirectionalLight" type="DirectionalLight" parent="CamPivot/OrthoCamera"]
 transform = Transform( -0.727872, 0.567064, -0.38554, 0.373389, 0.799347, 0.470772, -0.575138, -0.198705, 0.793557, 0, 12.1884, 21.294 )
 light_energy = 1.2
 shadow_enabled = true
 shadow_contact = 1.0
 
-[node name="FPSCounter" type="Label" parent="CamPivot/Camera"]
+[node name="FPSCounter" type="Label" parent="CamPivot/OrthoCamera"]
 margin_right = 40.0
 margin_bottom = 14.0
 script = ExtResource( 4 )
@@ -103,7 +104,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tween" type="Tween" parent="CamPivot/Camera"]
+[node name="Tween" type="Tween" parent="CamPivot/OrthoCamera"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

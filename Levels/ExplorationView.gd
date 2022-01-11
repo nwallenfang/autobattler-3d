@@ -32,27 +32,32 @@ func _on_CollectDetection_body_entered(_body: Node) -> void:
 	
 	
 func transition_to_combat():
-	# TODO disable movement
+	# spawn a battle grid 
+	var battle_grid: BattleGrid = BattleGrid.instance() 
+	var ortho_cam: Camera = battle_grid.get_node("CamPivot/OrthoCamera")
+	var pivot: Position3D = battle_grid.get_node("CamPivot")
+	# but it will only be made visible once the camera movement is done
 	
-	var target_transform = $Camera.transform.translated(50 * Vector3.UP)
+	# TODO disable player movement
+	
+	# target is the camera translated up
+	var target_transform: Transform = $Camera.transform.translated(50 * Vector3.UP)
+	target_transform.basis = battle_grid.get_node("CamPivot").transform.basis
+	
 	# TODO transition still needs to be fixed, interpolate is already done
 	# when weight is like 0.5
-	$Camera.transition_to_transform(target_transform)
-	yield($Camera, "transition_completed")
-	# spawn a battle grid 
-	var battle_grid = BattleGrid.instance()
-	battle_grid.translation = $Camera.translation
+	$Camera.transition_to_transform(target_transform, ortho_cam.fov)
+	# add battle grid to scene
+	battle_grid.translation = target_transform.origin
+#	battle_grid.translation = $Camera.translation
 	add_child(battle_grid)
 	# translate current camera to the location of the orthogonal camera
 	# (the camera in BattleGrid scene)
-	var pivot_to_camera: Vector3 = battle_grid.get_node("CamPivot/Camera").global_transform.origin - battle_grid.get_node("CamPivot").global_transform.origin
-	var origin_to_pivot = battle_grid.get_node("CamPivot").transform.origin
-	# TODO rotate current camera to rotation of orthogonal camera
-	# TODO I'd like to interpolate smoothly between the perspective and the orthogonal view
-	# don't know if it's feasible
-	battle_grid.transform = battle_grid.transform.translated(-pivot_to_camera-origin_to_pivot)
+	var pivot_to_camera: Vector3 = ortho_cam.global_transform.origin - pivot.global_transform.origin
+	var origin_to_pivot = pivot.transform.origin
+	battle_grid.global_transform = battle_grid.global_transform.translated(-pivot_to_camera-origin_to_pivot)
+	yield($Camera, "transition_completed")
 	
-	
-	# let CameraManager transition to orthogonal camera
-	CameraManager.transition_to(battle_grid.get_node("CamPivot/Camera"))
+	# TODO turn old light off
+	CameraManager.transition_to(ortho_cam)
 	

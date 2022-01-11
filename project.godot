@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Spatial",
+"class": "BattleGrid",
+"language": "GDScript",
+"path": "res://Levels/BattleGrid.gd"
+}, {
 "base": "Camera",
 "class": "CameraTween",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Player/Player.gd"
 } ]
 _global_script_class_icons={
+"BattleGrid": "",
 "CameraTween": "",
 "PhysicsMover3D": "",
 "Player": ""

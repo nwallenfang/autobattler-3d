@@ -1,4 +1,5 @@
 extends Spatial
+class_name BattleGrid
 
 # with (0, 0) being top-left
 export var number_of_rows = 8  # z in 3D
@@ -17,7 +18,7 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	# TODO color selected square differently
-	# both of these will probably be implemented with quads and shader magic
+	# will probably be implemented with quads and shader magic
 	pass
 
 func get_grid_coordinates(position: Vector3) -> Vector2:
@@ -32,13 +33,9 @@ func _on_ClickArea_input_event(_camera: Node, event: InputEvent, position: Vecto
 			print(get_grid_coordinates(position))
 
 
-func _on_Button_pressed() -> void:
-	# I tried to interpolate the perspective projection to orthogonal smoothly 
-	# using a vertex shader
-	# I stil think it's possible but it's too hard for now
-	# so instead of doing that, just switch from perspective to orthogonal
-	$CamPivot/Camera.projection = Camera.PROJECTION_ORTHOGONAL
 
-#	$Tween.reset_all()
-#	$Tween.interpolate_method(self, "shader_param_helper", 0.0, 1.0, 2.0)
-#	$Tween.start()
+
+#	if $CamPivot/OrthoCamera.projection == Camera.PROJECTION_PERSPECTIVE:
+#		$CamPivot/OrthoCamera.projection = Camera.PROJECTION_ORTHOGONAL
+#	else:
+#		$CamPivot/OrthoCamera.projection = Camera.PROJECTION_PERSPECTIVE
