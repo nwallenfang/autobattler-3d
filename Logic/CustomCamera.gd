@@ -15,29 +15,25 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# this function is called by the Tween :)
-func interpolate_rotation(weight: float):
-	# weight from 0 to 1 I think
-	var q_out = own_q.slerp(target_q, weight) 
-	self.transform.basis = Basis(q_out)
-	
+
+# this function is called by the Tween
 var target_transform: Transform
 func interpolate_transform(weight: float):
 	self.transform = self.transform.interpolate_with(target_transform, 2.0 * weight)
 
 
-func start_transition_rotate(target_transform: Transform):
-	previous_camera = self.duplicate()
-	var own_transform = self.transform
-	own_q = Quat(own_transform.basis)
-	target_q = Quat(target_transform.basis)
-	var duration = rad2deg(PI) / angular_velocity  
-	$Tween.interpolate_method(self, "interpolate_rotation", 0.0, 1.0, duration)
-	$Tween.start()
-	transitioning = true
+#func start_transition_rotate(target_transform: Transform):
+#	previous_camera = self.duplicate()
+#	var own_transform = self.transform
+#	own_q = Quat(own_transform.basis)
+#	target_q = Quat(target_transform.basis)
+#	var duration = rad2deg(PI) / angular_velocity  
+#	$Tween.interpolate_method(self, "interpolate_rotation", 0.0, 1.0, duration)
+#	$Tween.start()
+#	transitioning = true
 	
 	
-func start_transition_translate(target_transform_arg: Transform):
+func transition_to_transform(target_transform_arg: Transform):
 	# maybe these two methods can be combined / are interchangable with the new
 	# transform.interpolate_with call
 	previous_camera = self.duplicate()
@@ -51,7 +47,7 @@ func start_transition_translate(target_transform_arg: Transform):
 		
 
 
-func back_to_exploration_view():
+func transition_back_from_transform():
 	# check if previous camera is not None
 	previous_camera.current = true
 	# TODO

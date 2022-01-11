@@ -5,6 +5,7 @@ const BattleGrid = preload("res://Levels/BattleGrid.tscn")
 
 func _ready():
 	Game.player = $Player
+	CameraManager.set_initial_current($Camera)
 	camera_to_player = $Player.transform.origin.direction_to($Camera.transform.origin)
 
 const ZOOM_SPEED = 3.5
@@ -31,10 +32,12 @@ func _on_CollectDetection_body_entered(_body: Node) -> void:
 	
 	
 func transition_to_combat():
+	# TODO disable movement
+	
 	var target_transform = $Camera.transform.translated(50 * Vector3.UP)
 	# TODO transition still needs to be fixed, interpolate is already done
 	# when weight is like 0.5
-	$Camera.start_transition_translate(target_transform)
+	$Camera.transition_to_transform(target_transform)
 	yield($Camera, "transition_completed")
 	# spawn a battle grid 
 	var battle_grid = BattleGrid.instance()
@@ -48,3 +51,8 @@ func transition_to_combat():
 	# TODO I'd like to interpolate smoothly between the perspective and the orthogonal view
 	# don't know if it's feasible
 	battle_grid.transform = battle_grid.transform.translated(-pivot_to_camera-origin_to_pivot)
+	
+	
+	# let CameraManager transition to orthogonal camera
+	CameraManager.transition_to(battle_grid.get_node("CamPivot/Camera"))
+	

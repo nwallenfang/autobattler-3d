@@ -39,6 +39,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://Logic/Game.tscn"
+CameraManager="*res://Logic/CameraManager.tscn"
 
 [debug]
 

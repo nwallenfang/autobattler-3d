@@ -16,7 +16,7 @@
 [ext_resource path="res://Models/grass_blade/textures/lambert25_baseColor.jpeg" type="Texture" id=14]
 [ext_resource path="res://Models/grass_blade/textures/lambert25_normal.png" type="Texture" id=15]
 [ext_resource path="res://Models/FunkySphere.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Levels/TraceCamera.gd" type="Script" id=18]
+[ext_resource path="res://Logic/CustomCamera.gd" type="Script" id=18]
 [ext_resource path="res://Environment/Clouds.gd" type="Script" id=19]
 [ext_resource path="res://Environment/Cloud.tscn" type="PackedScene" id=20]
 
@@ -121,7 +121,7 @@ __meta__ = {
 environment = SubResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 42.5703, 0, 0 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 50.8952, 0, -1.92182 )
 
 [node name="FrontWall" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00126648, 0.314137, -27.3757 )
