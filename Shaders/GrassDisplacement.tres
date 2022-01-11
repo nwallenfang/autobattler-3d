@@ -25,13 +25,21 @@ uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
+uniform float uNearClipPlane = 0.25; // TODO bind this to camera value
+uniform vec2  perspective_to_ortho = vec2( 0.5 );
 
 void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
+
+    vec4 view = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+
+	// TODO is -view.z correct here?
+    view.x = mix( view.x, view.x * ( view.z / uNearClipPlane ), perspective_to_ortho.x );
+    view.y = mix( view.y, view.y * ( view.z / uNearClipPlane ), perspective_to_ortho.y );
+	
+	vec4 vertex_position_hom = PROJECTION_MATRIX * view;
+    VERTEX = (vertex_position_hom/vertex_position_hom.w).xyz;
 }
-
-
-
 
 void fragment() {
 	vec2 base_uv = UV;

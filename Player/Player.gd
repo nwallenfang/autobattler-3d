@@ -2,12 +2,13 @@ extends PhysicsMover3D
 
 class_name Player
 
+export var CONTROLS_ENABLED = true
+
 export var move_acceleration = 390.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 7200.0
 export var jump_total_number_of_frames = 3
 export var gravity = -25.0
-
 export var ground_dampening = 0.7
 
 
@@ -21,6 +22,9 @@ onready var model = $PlayerModel
 
 var jump_frame_count := -1
 func handle_input(delta):
+	if not CONTROLS_ENABLED:
+		return
+		
 	var move_direction := Vector3.ZERO
 	move_direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	move_direction.z = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")

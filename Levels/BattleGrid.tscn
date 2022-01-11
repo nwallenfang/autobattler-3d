@@ -80,10 +80,10 @@ transform = Transform( -4.37114e-08, 0, -31, 0, 1, 0, 1, 0, -1.35505e-06, 30.795
 material = SubResource( 7 )
 
 [node name="CamPivot" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 30, 0, 30 )
+transform = Transform( 1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 30, 0, 30 )
 
 [node name="Camera" type="Camera" parent="CamPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.124, 35 )
+transform = Transform( 1, 0, 0, 0, 1, 1.19209e-07, 0, -1.19209e-07, 1, 0, 1.246, 33 )
 fov = 90.0
 size = 50.0
 near = 0.25
@@ -114,6 +114,8 @@ text = "Change Shader"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="input_event" from="Ground/ClickArea" to="." method="_on_ClickArea_input_event"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]

@@ -17,8 +17,6 @@ func _ready() -> void:
 	
 	# prepare perspective shader material
 	
-	
-	
 func _process(delta: float) -> void:
 	# TODO draw grid marker lines
 	# TODO color selected square differently
@@ -42,6 +40,21 @@ func perspective_to_orthogonal():
 	pass
 
 
+# for vec2 parameters where x and y should be set to the same value
+var grass_mat: ShaderMaterial
+func shader_param_helper(value: float):
+	grass_mat.set_shader_param("perspective_to_ortho", Vector2(value, value))
+
 func _on_Button_pressed() -> void:
-	var grass_mat: ShaderMaterial = $Ground/GrassTexture.get_active_material(0)
-	grass_mat.shader = GrassDisplacementShader
+	# I tried to interpolate the perspective projection to orthogonal smoothly 
+	# using a vertex shader
+	# I stil think it's possible but it's too hard for now
+	
+	# so instead of doing that, just switch from perspective to orthogonal
+	$CamPivot/Camera.projection = Camera.PROJECTION_ORTHOGONAL
+#	grass_mat = $Ground/GrassTexture.get_active_material(0)
+#	grass_mat.set_shader_param("perspective_to_ortho", 1.0)
+#	grass_mat.shader = GrassDisplacementShader
+#	$Tween.reset_all()
+#	$Tween.interpolate_method(self, "shader_param_helper", 0.0, 1.0, 2.0)
+#	$Tween.start()

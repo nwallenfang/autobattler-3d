@@ -3,7 +3,7 @@ extends Camera
 
 var previous_camera: Camera
 
-var velocity: float = 20.0
+var velocity: float = 50.0
 var angular_velocity: float = 50.0
 var transitioning := false
 var own_q: Quat
@@ -55,11 +55,6 @@ func back_to_exploration_view():
 	# check if previous camera is not None
 	previous_camera.current = true
 	# TODO
-	
-	
-func _process(_delta: float) -> void:
-	pass
-
 
 func _on_Tween_tween_all_completed() -> void:
 	emit_signal("transition_completed")

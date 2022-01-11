@@ -38,7 +38,6 @@ func transition_to_combat():
 	yield($Camera, "transition_completed")
 	# spawn a battle grid 
 	var battle_grid = BattleGrid.instance()
-	print(battle_grid.translation)
 	battle_grid.translation = $Camera.translation
 	add_child(battle_grid)
 	# translate current camera to the location of the orthogonal camera
