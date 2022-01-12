@@ -34,8 +34,14 @@ func _on_ClickArea_input_event(_camera: Node, event: InputEvent, position: Vecto
 
 
 
-
 #	if $CamPivot/OrthoCamera.projection == Camera.PROJECTION_PERSPECTIVE:
 #		$CamPivot/OrthoCamera.projection = Camera.PROJECTION_ORTHOGONAL
 #	else:
 #		$CamPivot/OrthoCamera.projection = Camera.PROJECTION_PERSPECTIVE
+
+
+func _on_Button_pressed() -> void:
+	# go back (if there is somewhere to go back)
+	# cant use type because of cyclic dependencies lol
+#	if get_parent().name == 'ExplorationView':
+	get_parent().transition_to_exploration()

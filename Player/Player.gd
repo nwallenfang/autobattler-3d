@@ -2,7 +2,7 @@ extends PhysicsMover3D
 
 class_name Player
 
-export var CONTROLS_ENABLED = true
+export var CONTROLS_ENABLED := true
 
 export var move_acceleration = 390.0
 export var air_acceleration = 120.0

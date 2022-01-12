@@ -111,7 +111,7 @@ __meta__ = {
 [node name="Button" type="Button" parent="CanvasLayer"]
 margin_right = 12.0
 margin_bottom = 20.0
-text = "Change Shader"
+text = "Go Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }

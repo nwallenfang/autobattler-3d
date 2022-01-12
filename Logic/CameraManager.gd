@@ -3,7 +3,7 @@ extends Node
 # handle multiple cameras to easily return to previous
 
 
-var camera_stack: Array
+var camera_stack: Array = []
 var current: Camera
 
 func set_initial_current(cam: Camera):
