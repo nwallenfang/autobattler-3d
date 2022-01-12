@@ -39,6 +39,7 @@ func transition_to_combat():
 	# but it will only be made visible once the camera movement is done
 	
 	# TODO disable player movement
+	Game.player.CONTROLS_ENABLED = false
 	
 	# target is the camera translated up
 	var target_transform: Transform = $Camera.transform.translated(50 * Vector3.UP)
@@ -57,7 +58,7 @@ func transition_to_combat():
 	var origin_to_pivot = pivot.transform.origin
 	battle_grid.global_transform = battle_grid.global_transform.translated(-pivot_to_camera-origin_to_pivot)
 	yield($Camera, "transition_completed")
-	
+	yield(get_tree().create_timer(1.0), "timeout")
 	# TODO turn old light off
 	CameraManager.transition_to(ortho_cam)
 	
