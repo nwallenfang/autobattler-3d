@@ -9,49 +9,73 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "AbstractState",
+"language": "GDScript",
+"path": "res://Logic/Combat/AbstractState.gd"
+}, {
 "base": "Spatial",
 "class": "BattleGrid",
 "language": "GDScript",
-"path": "res://Levels/BattleGrid.gd"
+"path": "res://Logic/Views/BattleGrid.gd"
 }, {
 "base": "Camera",
 "class": "CameraTween",
 "language": "GDScript",
-"path": "res://Logic/CameraTween.gd"
+"path": "res://Logic/Camera/CameraTween.gd"
 }, {
 "base": "Spatial",
 "class": "ExplorationView",
 "language": "GDScript",
-"path": "res://Levels/ExplorationView.gd"
+"path": "res://Logic/Views/ExplorationView.gd"
+}, {
+"base": "Resource",
+"class": "FighterResource",
+"language": "GDScript",
+"path": "res://Resources/FighterResource.gd"
+}, {
+"base": "Resource",
+"class": "LevelResource",
+"language": "GDScript",
+"path": "res://Resources/LevelResource.gd"
 }, {
 "base": "KinematicBody",
 "class": "PhysicsMover3D",
 "language": "GDScript",
-"path": "res://Player/PhysicsMover3D.gd"
+"path": "res://Logic/Player/PhysicsMover3D.gd"
 }, {
 "base": "PhysicsMover3D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player/Player.gd"
+"path": "res://Logic/Player/Player.gd"
+}, {
+"base": "Node2D",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://Logic/Combat/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"AbstractState": "",
 "BattleGrid": "",
 "CameraTween": "",
 "ExplorationView": "",
+"FighterResource": "",
+"LevelResource": "",
 "PhysicsMover3D": "",
-"Player": ""
+"Player": "",
+"StateMachine": ""
 }
 
 [application]
 
 config/name="autobattler-3d"
-run/main_scene="res://Levels/ExplorationView.tscn"
+run/main_scene="res://Logic/Views/ExplorationView.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Game="*res://Logic/Game.tscn"
-CameraManager="*res://Logic/CameraManager.tscn"
+CameraManager="*res://Logic/Camera/CameraManager.tscn"
 
 [debug]
 
