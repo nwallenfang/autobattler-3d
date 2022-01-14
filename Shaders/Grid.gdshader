@@ -15,8 +15,8 @@ uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
 // stuff for the grid
-uniform float columns = 10.0;
-uniform float rows = 10.0;
+uniform float columns = 8.0;
+uniform float rows = 8.0;
 uniform float border_width = 0.05;
 uniform vec4 border_color : hint_color;
 
