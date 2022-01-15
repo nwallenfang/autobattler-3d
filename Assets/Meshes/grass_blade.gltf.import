@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/scene.gltf-7fd9fbeb04abe90aea13ba60711653cc.scn"
+path="res://.import/grass_blade.gltf-b4e6b1b2b9853eb4bb2c0f9eb99b833f.scn"
 
 [deps]
 
-source_file="res://Assets/grass_blade/scene.gltf"
-dest_files=[ "res://.import/scene.gltf-7fd9fbeb04abe90aea13ba60711653cc.scn" ]
+source_file="res://Assets/Meshes/grass_blade.gltf"
+dest_files=[ "res://.import/grass_blade.gltf-b4e6b1b2b9853eb4bb2c0f9eb99b833f.scn" ]
 
 [params]
 

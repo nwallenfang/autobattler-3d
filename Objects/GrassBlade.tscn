@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/grass_blade/lambert25.material" type="Material" id=1]
-[ext_resource path="res://Assets/grass_blade/textures/lambert25_baseColor.jpeg" type="Texture" id=2]
-[ext_resource path="res://Assets/grass_blade/textures/lambert25_metallicRoughness.png" type="Texture" id=3]
-[ext_resource path="res://Assets/grass_blade/textures/lambert25_normal.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Materials/grass_blade.material" type="Material" id=1]
+[ext_resource path="res://Assets/Textures/grass_blade/lambert25_baseColor.jpeg" type="Texture" id=2]
+[ext_resource path="res://Assets/Textures/grass_blade/lambert25_metallicRoughness.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Textures/grass_blade/lambert25_normal.png" type="Texture" id=4]
 [ext_resource path="res://Shaders/GrassBlade.gdshader" type="Shader" id=5]
 [ext_resource path="res://Objects/GrassBlade.gd" type="Script" id=6]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Materials/GrassGround.tres" type="Material" id=2]
@@ -35,12 +35,6 @@ shader_param/border_color = Color( 0.482353, 0.482353, 0.482353, 1 )
 [sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 0, 0.176471, 0.054902, 1 )
 
-[sub_resource type="SpatialMaterial" id=8]
-albedo_color = Color( 0.972549, 0.0588235, 0.0588235, 1 )
-
-[sub_resource type="SphereMesh" id=9]
-material = SubResource( 8 )
-
 [node name="BattleGrid" type="Spatial"]
 script = ExtResource( 4 )
 
@@ -66,8 +60,6 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 30, 0.1, 30 )
 mesh = SubResource( 5 )
 material/0 = SubResource( 6 )
-
-[node name="Fighters" type="Node" parent="Board"]
 
 [node name="Bounds" type="Spatial" parent="."]
 
@@ -125,17 +117,6 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="Gizmo" type="Spatial" parent="."]
-visible = false
-__meta__ = {
-"_editor_description_": "debugging: shows where you clicked on the grid"
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="Gizmo"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97028, 0 )
-mesh = SubResource( 9 )
-material/0 = null
 
 [connection signal="input_event" from="Board/ClickArea" to="." method="_on_ClickArea_input_event"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]

@@ -18,6 +18,6 @@ func _ready() -> void:
 	State = state_machine.State  
 	# TODO  print warning if not child of state machine
 	
-func process(delta: float, first_time_entering: bool) -> void:
+func process(_delta: float, _first_time_entering: bool) -> void:
 	# implement this
 	pass

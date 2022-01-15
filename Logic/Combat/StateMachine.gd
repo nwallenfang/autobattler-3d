@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 class_name StateMachine
 
@@ -23,7 +23,7 @@ onready var idle_transition_chance: Dictionary  # (state name (str) -> probabili
 
 func build_state_dict() -> Dictionary:
 	var state_list = {}
-	var index := 0
+
 	for child_state in get_children():
 		var casted_state = child_state as AbstractState
 		if casted_state == null:
@@ -187,14 +187,10 @@ func set_behavior_to(probabilities: Dictionary):
 	idle_transition_chance = build_absolute_transition_chances()
 	#$StateMachine.find_initial_state_and_prev()
 
-func stop() -> void:
+
+func process(_delta: float):
 	# overwrite this
 	pass
 	
-func process(delta: float):
-	# overwrite this
-	pass
-	
-func set_enabled(enable: bool):
-	# overwrite this in subclass
-	pass
+func set_enabled(val: bool):
+	enabled = val

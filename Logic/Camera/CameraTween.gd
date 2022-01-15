@@ -1,4 +1,5 @@
 # copied from https://github.com/Didifred/godot-camera-tween
+# at the time this script is not being used
 
 extends Camera
 class_name CameraTween

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/lambert25_baseColor.jpeg-d6282d2c0a052cd3f6e8981804d71863.s3tc.stex"
-path.etc2="res://.import/lambert25_baseColor.jpeg-d6282d2c0a052cd3f6e8981804d71863.etc2.stex"
+path.s3tc="res://.import/lambert25_baseColor.jpeg-57790c873b191ddd37b19d5d0a830993.s3tc.stex"
+path.etc2="res://.import/lambert25_baseColor.jpeg-57790c873b191ddd37b19d5d0a830993.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/grass_blade/textures/lambert25_baseColor.jpeg"
-dest_files=[ "res://.import/lambert25_baseColor.jpeg-d6282d2c0a052cd3f6e8981804d71863.s3tc.stex", "res://.import/lambert25_baseColor.jpeg-d6282d2c0a052cd3f6e8981804d71863.etc2.stex" ]
+source_file="res://Assets/Textures/grass_blade/lambert25_baseColor.jpeg"
+dest_files=[ "res://.import/lambert25_baseColor.jpeg-57790c873b191ddd37b19d5d0a830993.s3tc.stex", "res://.import/lambert25_baseColor.jpeg-57790c873b191ddd37b19d5d0a830993.etc2.stex" ]
 
 [params]
 

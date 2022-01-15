@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/lambert25_metallicRoughness.png-5057ee64f2e4f54dc721f55f49f4a19d.s3tc.stex"
-path.etc2="res://.import/lambert25_metallicRoughness.png-5057ee64f2e4f54dc721f55f49f4a19d.etc2.stex"
+path.s3tc="res://.import/lambert25_normal.png-6761cf9d2085ce5123b45a72e8e83d59.s3tc.stex"
+path.etc2="res://.import/lambert25_normal.png-6761cf9d2085ce5123b45a72e8e83d59.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/grass_blade/textures/lambert25_metallicRoughness.png"
-dest_files=[ "res://.import/lambert25_metallicRoughness.png-5057ee64f2e4f54dc721f55f49f4a19d.s3tc.stex", "res://.import/lambert25_metallicRoughness.png-5057ee64f2e4f54dc721f55f49f4a19d.etc2.stex" ]
+source_file="res://Assets/Textures/grass_blade/lambert25_normal.png"
+dest_files=[ "res://.import/lambert25_normal.png-6761cf9d2085ce5123b45a72e8e83d59.s3tc.stex", "res://.import/lambert25_normal.png-6761cf9d2085ce5123b45a72e8e83d59.etc2.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
+compress/normal_map=1
 flags/repeat=true
 flags/filter=true
 flags/mipmaps=true

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.972549, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="SphereMesh" id=9]
+material = SubResource( 8 )
+
+[node name="Gizmo" type="Spatial"]
+__meta__ = {
+"_editor_description_": "debugging: shows where you clicked on the grid"
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97028, 0 )
+mesh = SubResource( 9 )
+material/0 = null

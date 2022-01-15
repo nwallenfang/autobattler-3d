@@ -76,7 +76,7 @@ func transition_to_exploration():
 	var battle_grid := $BattleGrid
 	battle_grid.queue_free()
 	CameraManager.transition_back()
-	$Camera.transition_to_transform(last_camera_position, last_fov)
+	$Camera.move_to_transform_and_fov(last_camera_position, last_fov)
 	
 	
 	# activate movement again
