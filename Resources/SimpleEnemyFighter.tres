@@ -1,11 +1,7 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Resources/Schemas/FighterResource.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Materials/EnemyMaterial.tres" type="Material" id=2]
-
-[sub_resource type="CubeMesh" id=1]
-material = ExtResource( 2 )
-size = Vector3( 4, 4, 4 )
+[ext_resource path="res://Assets/Meshes/pawn_highres.tres" type="ArrayMesh" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -14,4 +10,4 @@ damage = 1
 attack_speed = 0.5
 row_index = 4
 col_index = 4
-mesh = SubResource( 1 )
+mesh = ExtResource( 2 )

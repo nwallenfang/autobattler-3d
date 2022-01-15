@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Healthbar/Healthbar.gd" type="Script" id=1]
+[ext_resource path="res://UI/Healthbar/healthbar_progress.png" type="Texture" id=2]
+[ext_resource path="res://UI/Healthbar/Healthbar2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Healthbar/HealthbarMaterial.tres" type="Material" id=4]
+
+[node name="Healthbar" type="Sprite3D"]
+material_override = ExtResource( 4 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 128, 32 )
+transparent_bg = true
+usage = 0
+render_target_v_flip = true
+
+[node name="Healthbar2D" parent="Viewport" instance=ExtResource( 3 )]

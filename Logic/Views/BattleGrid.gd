@@ -53,6 +53,8 @@ func load_level(level: LevelResource):
 		# pipe resource data into Fighter instance
 		fighter.init(fighter_resource)
 		
+		# TODO scale fighter to fit cell exactly or like 80% of cell's size
+		
 		# with x being the column and z being the row
 		# (and with the column being the y coordinate of our Vector2)
 		# (it's confusing I know)

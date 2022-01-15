@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Objects/Clouds.gd" type="Script" id=1]
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Shaders/GrassBlade.gdshader" type="Shader" id=17]
 [ext_resource path="res://Logic/Views/ExplorationView.gd" type="Script" id=18]
 [ext_resource path="res://Logic/Camera/CustomCamera.gd" type="Script" id=19]
+[ext_resource path="res://Assets/Meshes/Bishop.obj" type="ArrayMesh" id=20]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.1075, 0.317125, 0.43, 1 )
@@ -286,6 +287,11 @@ material/0 = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 shape = SubResource( 3 )
 
+[node name="Bishop" type="MeshInstance" parent="Environment/Grass"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40.1793, 19.3152, 80.0095 )
+mesh = ExtResource( 20 )
+material/0 = null
+
 [node name="Collectibles" type="Node" parent="."]
 
 [node name="FunkySphere" parent="Collectibles" instance=ExtResource( 14 )]
@@ -293,6 +299,17 @@ transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 56.3064, 1.95539, 0 )
 
 [node name="Sphere" parent="Collectibles/FunkySphere" index="0"]
 skeleton = NodePath("../../..")
+
+[node name="Bishop" type="MeshInstance" parent="."]
+transform = Transform( 800, 0, 0, 0, 800, 0, 0, 0, 800, 45.6907, -0.263163, -241.882 )
+visible = false
+mesh = ExtResource( 20 )
+material/0 = null
+
+[node name="Bishop2" type="MeshInstance" parent="."]
+transform = Transform( 200, 0, 0, 0, 200, 0, 0, 0, 200, 85.184, -0.0473957, -19.2061 )
+mesh = ExtResource( 20 )
+material/0 = null
 
 [connection signal="tween_all_completed" from="Camera/Tween" to="Camera" method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Collectibles/FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]

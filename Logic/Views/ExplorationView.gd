@@ -51,7 +51,7 @@ func transition_to_battlegrid():
 	var target_transform: Transform = $Camera.transform.translated(battle_grid_cam_translation)
 	target_transform.basis = battle_grid.get_node("CamPivot").transform.basis
 	
-	$Camera.move_to_transform(target_transform, ortho_cam.fov)
+	$Camera.move_to_transform_and_fov(target_transform, ortho_cam.fov)
 	# add battle grid to scene
 	battle_grid.translation = target_transform.origin
 	add_child(battle_grid)
