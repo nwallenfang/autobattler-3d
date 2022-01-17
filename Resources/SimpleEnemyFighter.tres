@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
+team = 1
 max_health = 10
 damage = 1
 attack_speed = 0.5

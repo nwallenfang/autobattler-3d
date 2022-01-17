@@ -108,7 +108,7 @@ __meta__ = {
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="BackButton" type="Button" parent="CanvasLayer"]
 margin_right = 12.0
 margin_bottom = 20.0
 text = "Go Back"
@@ -116,7 +116,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="StartButton" type="Button" parent="CanvasLayer"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 44.0
+text = "Start Combat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="input_event" from="Board/ClickArea" to="." method="_on_ClickArea_input_event"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_StartButton_pressed"]

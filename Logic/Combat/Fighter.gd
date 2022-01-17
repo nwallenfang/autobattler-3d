@@ -7,8 +7,10 @@ var max_health: int
 var damage: int
 var attack_speed: float
 
+var team = Team.ENEMY
+
 enum Team {
-	PLAYER, ENEMY
+	FRIENDLY, ENEMY
 }
 
 func init(resource: FighterResource) -> void:
@@ -16,7 +18,8 @@ func init(resource: FighterResource) -> void:
 	self.max_health = resource.max_health
 	self.damage = resource.damage
 	self.attack_speed = resource.attack_speed
-	
+	# enums are the same between this class and the resource
+	self.team = resource.team
 	$Mesh.mesh = resource.mesh
 	
 

@@ -162,7 +162,11 @@ func find_initial_state_and_prev():
 		# twice in a row is no problem (see ALLOW_.....)
 		previous_non_idle_state = State[first_possible_state]
 
-func _ready() -> void:
+# TODO FIXME We don't want to have an abstract class that we simply extended
+# have access to the tree and assume any kind of Nodes exist
+# this script has to go a major overhaul before being of any use in projects
+# other than Cordyception
+func _enter_tree() -> void:
 	State = build_state_dict()
 	make_state_list_available()
 		
@@ -188,9 +192,6 @@ func set_behavior_to(probabilities: Dictionary):
 	#$StateMachine.find_initial_state_and_prev()
 
 
-func process(_delta: float):
-	# overwrite this
-	pass
 	
 func set_enabled(val: bool):
 	enabled = val

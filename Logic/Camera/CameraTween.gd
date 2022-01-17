@@ -378,7 +378,7 @@ func _move_camera(time : float) :
 	
 	_previous_time = time
 
-func _physics_process(delta : float):
+func _process(delta : float):
 	if _target_camera_position != null :
 		if (follow_target == true) and (_tween_in_progress == false):
 			# speed of the camera
