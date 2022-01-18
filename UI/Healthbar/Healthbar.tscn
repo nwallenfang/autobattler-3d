@@ -6,7 +6,7 @@
 [ext_resource path="res://UI/Healthbar/healthbar_progress.png" type="Texture" id=5]
 [ext_resource path="res://UI/theme.tres" type="Theme" id=6]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
@@ -14,8 +14,9 @@ flags_no_depth_test = true
 flags_fixed_size = true
 params_billboard_mode = 1
 
-[sub_resource type="QuadMesh" id=1]
-material = SubResource( 2 )
+[sub_resource type="QuadMesh" id=2]
+resource_local_to_scene = true
+material = SubResource( 1 )
 size = Vector2( 0.267, 0.05 )
 
 [node name="Healthbar" type="Spatial"]
@@ -48,7 +49,7 @@ __meta__ = {
 
 [node name="QuadMesh" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]

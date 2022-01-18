@@ -2,16 +2,23 @@ extends Spatial
 
 class_name Fighter
 
-var health: int
+var health: int setget set_health
 var max_health: int
 var damage: int
 var attack_speed: float
 
-var team = Team.ENEMY
+var team = Type.ENEMY
 
-enum Team {
+onready var healthbar: Healthbar = $Healthbar as Healthbar
+
+enum Type {
 	FRIENDLY, ENEMY
 }
+
+func _ready() -> void:
+	# we expect init to be called once the fighter has entered the tree!!
+	healthbar.update_max_health(max_health)
+	healthbar.update_health(health)
 
 func init(resource: FighterResource) -> void:
 	self.health = resource.max_health
@@ -24,7 +31,7 @@ func init(resource: FighterResource) -> void:
 	
 
 	var aabb: AABB = $Mesh.mesh.get_aabb()
-	# scale fighter to make AABB be a 1x2x1 Box
+	# TODO scale fighter to make AABB be a 1x2x1 Box
 	# that means that aabb's x and z should be -0.5, y should be 0.0
 	# width and depth should be 1
 	# we'll work under the premise for now that x and z dimensions are equal
@@ -37,3 +44,7 @@ func init(resource: FighterResource) -> void:
 #	var packed_scene = PackedScene.new()
 #	packed_scene.pack(self)
 #	ResourceSaver.save("res://Test/TestFighter.tscn", packed_scene)
+
+func set_health(new_health: int):
+	health = new_health
+	$Healthbar.update_health(new_health)
