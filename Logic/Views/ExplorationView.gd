@@ -5,11 +5,14 @@ const ZOOM_SPEED = 3.5
 const BattleGrid = preload("res://Logic/Views/BattleGrid.tscn")
 const battle_grid_cam_translation: Vector3 = 50 * Vector3.UP
 
+onready var battle_grid
+
 func _ready():
 	Game.player = $Player
 	CameraManager.set_initial_current($Camera)
 	# assuming that this direction is constant..
 	camera_to_player = $Player.transform.origin.direction_to($Camera.transform.origin)
+	battle_grid = BattleGrid.instance()
 
 
 var camera_to_player: Vector3
@@ -40,7 +43,7 @@ func transition_to_battlegrid():
 	# spawn a battle grid 
 	last_camera_position = Transform($Camera.global_transform)
 	last_fov = ($Camera as Camera).fov
-	var battle_grid: BattleGrid = BattleGrid.instance() as BattleGrid
+
 	var ortho_cam: Camera = battle_grid.get_node("CamPivot/OrthoCamera") as Camera
 	var pivot: Position3D = battle_grid.get_node("CamPivot") as Position3D
 	# but it will only be made visible once the camera movement is done
@@ -73,7 +76,6 @@ func transition_to_battlegrid():
 func transition_to_exploration():
 	# deconstruct BattleGrid node
 	# just a free() for now but maybe use dissolve shader or something else entirely
-	var battle_grid := $BattleGrid
 	battle_grid.queue_free()
 	CameraManager.transition_back()
 	$Camera.move_to_transform_and_fov(last_camera_position, last_fov)

@@ -98,9 +98,27 @@ class BoardData:
 	func get_closest_fighter(row: int, col: int, type: int):
 		# Find the fighter belonging to the team specified in type that is closest
 		# to (row, col) (euclidean distance)
-		# TODO
-		pass
+		if not cache_valid:
+			prepare_all_fighter_lists()
+		var search_fighters: Array
+		if type == Type.Friendly:
+			search_fighters = _enemy_fighters
+		elif type == Type.Enemy:
+			search_fighters = _friendly_fighters
+		else:
+			push_error("invalid type argument passed")
 		
+		var closest_fighter: Fighter
+		var distance
+		# vector of argument row and col index
+		var vector: Vector2 = Vector2(row, col)
+		var fighter_vector: Vector2
+		for fighter in search_fighters:
+			fighter_vector = Vector2(fighter.row, fighter.col)
+			distance = fighter
+		
+		
+		return closest_fighter
 		
 	func register_fighter(fighter: Fighter, row: int, col: int):
 		if types[row][col] != Type.Empty:
@@ -216,10 +234,7 @@ func _on_ClickArea_input_event(_camera: Node, event: InputEvent, mouse_position_
 			# spawn friendly fighter at mouse position 
 			# if there is no enemy standing there
 			if not data.is_occupied(grid_position.row, grid_position.col):
-				# TODO the duplication costs some time within the click event, would be cooler to
-				# have those preloaded
-				var cloned_resource: FighterResource = friendly_fighter_resource.duplicate()
-				var fighter = add_fighter_to_tree_with_pos(cloned_resource, grid_position.row, grid_position.col)
+				var fighter = add_fighter_to_tree_with_pos(friendly_fighter_resource, grid_position.row, grid_position.col)
 				# move fighter to center of cell
 				var position := Vector3(
 					(grid_position.col + 0.5) * cell_dim.y,

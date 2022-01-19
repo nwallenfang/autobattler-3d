@@ -82,6 +82,7 @@ _global_script_class_icons={
 
 config/name="autobattler-3d"
 run/main_scene="res://Logic/Views/ExplorationView.tscn"
+boot_splash/image="res://Assets/splash.png"
 config/icon="res://icon.png"
 
 [autoload]

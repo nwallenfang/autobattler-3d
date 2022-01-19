@@ -11,6 +11,13 @@ var team = Type.ENEMY
 
 onready var healthbar: Healthbar = $Healthbar as Healthbar
 
+# fighter shouldn't have this information because we will use the fighter
+# independelty from the grid. But I don't know how to handle the access
+# in get_closest_fighter() (BattleGrid.gd) more elegantly without this.
+# ¯\_(ツ)_/¯
+var row: int
+var col: int
+
 enum Type {
 	FRIENDLY, ENEMY
 }
