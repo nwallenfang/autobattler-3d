@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 team = 1
 max_health = 10
-damage = 1
+damage = 5
 attack_speed = 0.5
 row_index = 4
 col_index = 4

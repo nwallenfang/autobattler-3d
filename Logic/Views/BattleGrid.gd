@@ -67,14 +67,15 @@ class BoardData:
 				elif types[row][col] == Type.Friendly:
 					_friendly_fighters.append(fighters[row][col])
 				# copy "calculated" list for next time
-		_all_fighters = _friendly_fighters.duplicate().append_array(_enemy_fighters)
+		_all_fighters = _friendly_fighters.duplicate()
+		_all_fighters.append_array(_enemy_fighters)
 		cache_valid = true
 
 
 	# these access methods will all be in quadratic time which sucks but is fine for our board size.
 	# if this class is one day used for managing data of an epic grid-based RTS you might want to
 	# change the underlying data structure.
-	func get_all_enemy_fighters() -> Array:
+	func get_enemy_fighters() -> Array:
 		if cache_valid:
 			return _enemy_fighters
 		else:
@@ -88,7 +89,7 @@ class BoardData:
 			prepare_all_fighter_lists()
 			return _all_fighters
 		
-	func get_all_friendly_fighters():
+	func get_friendly_fighters():
 		if cache_valid:
 			return _friendly_fighters
 		else:
@@ -109,13 +110,20 @@ class BoardData:
 			push_error("invalid type argument passed")
 		
 		var closest_fighter: Fighter
-		var distance
+		var distance: float
 		# vector of argument row and col index
-		var vector: Vector2 = Vector2(row, col)
+		var own_vector: Vector2 = Vector2(row, col)
 		var fighter_vector: Vector2
+		var shortest_dist_so_far := 1.79769e308
+		
 		for fighter in search_fighters:
 			fighter_vector = Vector2(fighter.row, fighter.col)
-			distance = fighter
+			distance = own_vector.distance_to(fighter_vector)
+			
+			if distance < shortest_dist_so_far:
+				shortest_dist_so_far = distance
+				closest_fighter = fighter
+				
 		
 		
 		return closest_fighter
@@ -134,7 +142,8 @@ class BoardData:
 		
 	func clear(_row: int, _col: int):
 		cache_valid = false
-		pass
+#		types[_row, _col]
+		# TODO
 	
 	# TODO describe and implement 
 	func get_fighters_in_range(_row: int, _col: int, _range_distance:int) -> Array:#[Fighter]
@@ -174,7 +183,7 @@ func load_level(level: LevelResource) -> void:
 		var fighter: Fighter = FighterScene.instance()
 		$Board.add_child(fighter)
 		# pipe resource data into Fighter instance
-		fighter.init(fighter_resource)
+		fighter.init(self, fighter_resource)
 		
 		# TODO scale fighter to fit cell exactly or like 80% of cell's size
 		# with x being the column and z being the row
@@ -191,10 +200,20 @@ func load_level(level: LevelResource) -> void:
 		if not data.is_occupied(fighter_resource.row_index, fighter_resource.col_index):
 			data.register_fighter(fighter, fighter_resource.row_index, fighter_resource.col_index)
 
+func match_state():
+	match state:
+		State.COMBAT:
+			pass
+		State.PREPARATION:
+			pass
+
+func state_combat():
+	pass
+
 func _process(_delta: float) -> void:
 	# TODO color selected square differently
 	# will probably be implemented with quads and shader magic
-	pass
+	match_state()
 
 func get_grid_coordinates(position: Vector3) -> Dictionary:
 	# position are local coordinates relative to BattleGrid/Ground
@@ -212,11 +231,23 @@ func add_fighter_to_tree(fighter_resource: FighterResource) -> Fighter:
 	
 func add_fighter_to_tree_with_pos(fighter_resource: FighterResource, row: int, col: int):
 	var fighter = FighterScene.instance()
-	fighter.init(fighter_resource)
+	fighter.init(self, fighter_resource)
 	self.add_child(fighter)
 	data.register_fighter(fighter, row, col)
 	
 	return fighter
+
+func get_new_target(fighter: Fighter) -> Fighter:
+	# the passed fighter instance wants a new target to fight
+	print("get new fighter")
+	return null
+	
+	
+func fighter_died(coords: Dictionary):
+	print("died nice")
+	
+func target_fighter_invalid(coords: Dictionary):
+	print("target invalid nice")
 	
 
 func _on_ClickArea_input_event(_camera: Node, event: InputEvent, mouse_position_global: Vector3, _normal: Vector3, _shape_idx: int) -> void:
@@ -261,4 +292,10 @@ func _on_Button_pressed() -> void:
 
 func _on_StartButton_pressed() -> void:
 	self.state = State.COMBAT
-	print(data.fighters)
+	
+	for fighter in data.get_all_fighters():
+		# find target fighter that this one will attack
+		fighter = fighter as Fighter
+		fighter.target_fighter = data.get_closest_fighter(fighter.row, fighter.col, fighter.team)
+		fighter.is_fighting = true
+	

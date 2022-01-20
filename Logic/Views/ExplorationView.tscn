@@ -320,7 +320,7 @@ mesh = SubResource( 10 )
 material/0 = null
 
 [node name="Bishop2" type="MeshInstance" parent="."]
-transform = Transform( 200, 0, 0, 0, 200, 0, 0, 0, 200, 85.184, -0.0473957, -19.2061 )
+transform = Transform( 200, 0, 0, 0, 200, 0, 0, 0, 200, 63.2117, -0.0473957, -19.2061 )
 mesh = SubResource( 10 )
 material/0 = null
 
