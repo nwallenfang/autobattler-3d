@@ -60,6 +60,9 @@ class BoardData:
 	
 	func prepare_all_fighter_lists():
 		# reset the lists
+		_enemy_fighters = []
+		_friendly_fighters = []
+		
 		for row in range(number_of_rows):
 			for col in range(number_of_cols):
 				if types[row][col] == Type.Enemy:
@@ -140,14 +143,23 @@ class BoardData:
 		return types[row][col] != Type.Empty
 		
 		
-	func clear(_row: int, _col: int):
+	func clear(row: int, col: int):
 		cache_valid = false
-#		types[_row, _col]
-		# TODO
+		types[row][col] = Type.Empty
+		fighters[row][col] = null
 	
-	# TODO describe and implement 
-	func get_fighters_in_range(_row: int, _col: int, _range_distance:int) -> Array:#[Fighter]
-		return []
+	func print_state():
+		for row in range(number_of_rows):
+			for col in range(number_of_cols):
+				if types[row][col] != Type.Empty:
+					var team_name
+					if types[row][col] == Type.Friendly:
+						team_name = "Friendly"
+					else:
+						team_name = "Enemy"
+					var fighter = fighters[row][col]
+					print("(%s|%s) %s (%s|%s)" % [row, col, team_name,
+					fighter.row, fighter.col])
 
 
 func _ready() -> void:
@@ -232,22 +244,22 @@ func add_fighter_to_tree(fighter_resource: FighterResource) -> Fighter:
 func add_fighter_to_tree_with_pos(fighter_resource: FighterResource, row: int, col: int):
 	var fighter = FighterScene.instance()
 	fighter.init(self, fighter_resource)
-	self.add_child(fighter)
+	fighter.row = row
+	fighter.col = col
+	$Board.add_child(fighter)
 	data.register_fighter(fighter, row, col)
+	data.print_state()
+	return fighter	
 	
-	return fighter
-
-func get_new_target(fighter: Fighter) -> Fighter:
-	# the passed fighter instance wants a new target to fight
-	print("get new fighter")
-	return null
-	
-	
+# magically connected to died signal in Fighter
 func fighter_died(coords: Dictionary):
-	print("died nice")
-	
-func target_fighter_invalid(coords: Dictionary):
-	print("target invalid nice")
+	data.clear(coords["row"], coords["col"])
+
+# magically connected to target_fighter_invalid in Fighter	
+func target_fighter_invalid(fighter: Fighter):
+	# looks stupid but I just need to figure out where thsi BUG is
+	var args = {"row": fighter.row, "col": fighter.col, "team": fighter.team}
+	fighter.target_fighter = data.get_closest_fighter(args.row, args.col, args.team)
 	
 
 func _on_ClickArea_input_event(_camera: Node, event: InputEvent, mouse_position_global: Vector3, _normal: Vector3, _shape_idx: int) -> void:

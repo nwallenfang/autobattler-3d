@@ -45,6 +45,9 @@ func init(signal_handler: Node, resource: FighterResource) -> void:
 	self.team = resource.team
 	$Mesh.mesh = resource.mesh
 	
+	# pain
+	self.row = resource.row_index
+	self.col = resource.col_index
 
 	var aabb: AABB = $Mesh.mesh.get_aabb()
 	# TODO scale fighter to make AABB be a 1x2x1 Box
@@ -56,9 +59,9 @@ func init(signal_handler: Node, resource: FighterResource) -> void:
 	translation.y = -aabb.position.y
 	$Mesh.translate(translation)
 	$Mesh.transform = $Mesh.transform.scaled(Vector3(200.0, 200.0, 200.0))
-	
-	connect("died", signal_handler, "fighter_died")
-	connect("target_fighter_invalid", signal_handler, "target_fighter_invalid")
+	var _err
+	_err = connect("died", signal_handler, "fighter_died")
+	_err = connect("target_fighter_invalid", signal_handler, "target_fighter_invalid")
 	
 	# save fighter to have a look at it in the editor
 #	var packed_scene = PackedScene.new()
@@ -88,17 +91,23 @@ func receive_attack(enemy_damage: int):
 
 # same for this, this is just a placeholder for more complex behavior
 func attack():
-	if not is_instance_valid(target_fighter):
-		# will return null if there is noone to fight right now
-		emit_signal("target_fighter_invalid", {row: self.row, col: self.col})
-		var battle_grid = get_parent().get_parent()
-		target_fighter = battle_grid.get_new_target(self)
-	
+	if not is_instance_valid(target_fighter):  # no target to fight
+		# passing yourself as an argument in a signal feels like letting yourself 
+		# fall while facing a cliff's edge, just hoping there is some benevolent
+		# node listening that will catch you.
+		# (your good ol' grandparent BattleGrid's got you in this case, phew)
+		# The dreamy difference being that nothing has happened when you find
+		# yourself uncaught at the foot of the mountain)
+		emit_signal("target_fighter_invalid", self)
+#		var battle_grid = get_parent().get_parent()
+#		target_fighter = battle_grid.get_new_target(self)
+		
+	# target_fighter will be null if there is noone to fight right now
 	if target_fighter != null:
 		target_fighter.receive_attack(self.damage)
 
 func start_dying():
-	emit_signal("died", {row: self.row, col: self.col})
+	emit_signal("died", {"row": self.row, "col": self.col})
 	queue_free()
 
 func set_health(new_health: int):
