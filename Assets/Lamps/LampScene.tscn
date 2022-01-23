@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Lamps/Lamp7.glb" type="PackedScene" id=1]
+
+[node name="Lamp7" instance=ExtResource( 1 )]
+
+[node name="BaseRod2" parent="Lamp/BasePoint" index="0"]
+transform = Transform( -0.995341, 0, -0.0964133, -0.0964133, 0, 0.995341, 0, 1, 0, 1.04679e-18, 0, 0 )
+
+[node name="WhiteRod2" parent="Lamp/BasePoint/BaseRod2" index="0"]
+transform = Transform( 1, -6.22273e-08, 4.99853e-08, 4.88945e-09, 0.672831, 0.739797, -7.96672e-08, -0.739797, 0.672831, -9.41959e-10, 0.252855, -9.96515e-09 )
+
+[node name="TopRod2" parent="Lamp/BasePoint/BaseRod2/WhiteRod2" index="0"]
+transform = Transform( 1, -6.34061e-09, -2.2949e-07, -2.28917e-07, -0.103358, -0.994644, -1.7413e-08, 0.994644, -0.103358, -5.6059e-10, 0.333174, -2.97478e-08 )
+
+[node name="LampShade2" parent="Lamp/BasePoint/BaseRod2/WhiteRod2/TopRod2" index="0"]
+transform = Transform( 0.99721, 0.0746426, -0.000699064, -0.0524935, 0.694583, -0.717495, -0.0530701, 0.71553, 0.696563, 1.01094e-09, 0.428044, -2.13195e-08 )
+
+[node name="Spot_Orientation" parent="Lamp/BasePoint/BaseRod2/WhiteRod2/TopRod2/LampShade2/LampShade/Bulb/Spot" index="0"]
+transform = Transform( 1, -3.72529e-09, 2.98023e-08, 0, 0, 1, 9.31323e-10, -1, -1.49012e-07, 0, 0, 0 )
+light_energy = 10.152

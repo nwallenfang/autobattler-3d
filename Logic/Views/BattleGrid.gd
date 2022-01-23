@@ -193,9 +193,10 @@ func load_level(level: LevelResource) -> void:
 			return
 		# create a new fighter node
 		var fighter: Fighter = FighterScene.instance()
-		$Board.add_child(fighter)
 		# pipe resource data into Fighter instance
 		fighter.init(self, fighter_resource)
+		$Board.add_child(fighter)
+
 		
 		# TODO scale fighter to fit cell exactly or like 80% of cell's size
 		# with x being the column and z being the row
@@ -248,12 +249,22 @@ func add_fighter_to_tree_with_pos(fighter_resource: FighterResource, row: int, c
 	fighter.col = col
 	$Board.add_child(fighter)
 	data.register_fighter(fighter, row, col)
-	data.print_state()
 	return fighter	
 	
 # magically connected to died signal in Fighter
 func fighter_died(coords: Dictionary):
 	data.clear(coords["row"], coords["col"])
+	
+	# see if game is over
+	if data.get_enemy_fighters().empty():
+		state = State.PREPARATION
+		$CanvasLayer/RichTextLabel.visible = true
+		$CanvasLayer/RichTextLabel.text = "You won! :)"
+		
+	if data.get_friendly_fighters().empty():
+		state = State.PREPARATION
+		$CanvasLayer/RichTextLabel.visible = true
+		$CanvasLayer/RichTextLabel.text = "You lost! :("
 
 # magically connected to target_fighter_invalid in Fighter	
 func target_fighter_invalid(fighter: Fighter):
@@ -291,8 +302,6 @@ func _on_ClickArea_input_event(_camera: Node, event: InputEvent, mouse_position_
 				# reduce it's health to test
 				var fighter: Fighter = data.fighters[grid_position.row][grid_position.col]
 				fighter.health -= 1
-			
-
 
 
 func _on_Button_pressed() -> void:

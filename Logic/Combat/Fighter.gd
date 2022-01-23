@@ -27,6 +27,8 @@ signal died
 signal target_fighter_invalid
 
 
+const ProjectileScene = preload("res://Objects/Projectile.tscn")
+
 enum Type {
 	FRIENDLY, ENEMY
 }
@@ -99,12 +101,11 @@ func attack():
 		# The dreamy difference being that nothing has happened when you find
 		# yourself uncaught at the foot of the mountain)
 		emit_signal("target_fighter_invalid", self)
-#		var battle_grid = get_parent().get_parent()
-#		target_fighter = battle_grid.get_new_target(self)
 		
 	# target_fighter will be null if there is noone to fight right now
 	if target_fighter != null:
 		target_fighter.receive_attack(self.damage)
+		spawn_projectile()
 
 func start_dying():
 	emit_signal("died", {"row": self.row, "col": self.col})
@@ -117,6 +118,28 @@ func set_health(new_health: int):
 	if health <= 0:
 		start_dying()
 
+const PROJECTILE_HEIGHT = 2.0
+# may also depend on attack speed
+#const PROJECTILE_BASE_SPEED = 2.0
+func spawn_projectile():
+	var projectile = ProjectileScene.instance()
+	var board = get_parent() as Spatial
+	board.add_child(projectile)
+	projectile.global_transform.origin = board.global_transform.origin
+	projectile.translate(self.translation)
+	projectile.translate(Vector3(0.0, PROJECTILE_HEIGHT, 0.0))
+	
+	# tween projectile in direction
+	var start_position = projectile.translation
+	var target_position = target_fighter.translation
+	
+	var projectile_tween = projectile.get_node("Tween") as Tween
+	
+	projectile_tween.interpolate_property(projectile, "translation", start_position, target_position, 1.0)
+	projectile_tween.start()
+
+	
 
 func _on_AttackTimer_timeout() -> void:
 	attack()
+
