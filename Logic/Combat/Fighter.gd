@@ -7,6 +7,9 @@ var max_health: int
 var damage: int
 var attack_speed: float
 
+# this is how long before the AttackTimer to 
+var projectile_duration := 0.3
+
 # replace this with a proper state machine later, for now it's either fighting or not
 var is_fighting := false setget set_is_fighting
 # the fighter this one will attack
@@ -74,7 +77,7 @@ func set_is_fighting(value: bool):
 	if is_fighting:
 		if not value:
 			is_fighting = false
-			$AttackTimer.stop()
+			$StartAttackTimer.stop()
 		else:
 			# no change
 			pass
@@ -85,7 +88,12 @@ func set_is_fighting(value: bool):
 		else:
 			is_fighting = true
 			var attack_time = 1.0 / attack_speed
-			$AttackTimer.start(attack_time)
+			# The first attack timer will have 1/attack_speed - projectile_duration as duration
+			# after that it will trigger every 1/attack_speed 
+			# TODO big problems if attack_speeed is too high and attack_time < projectile_duration
+			if attack_time < projectile_duration:
+				push_error("attack_time < projectile_duration, needs to be implemented")
+			$StartAttackTimer.start(attack_time - projectile_duration)
 
 # later a more complex Attack object can be passed
 func receive_attack(enemy_damage: int):
@@ -105,7 +113,6 @@ func attack():
 	# target_fighter will be null if there is noone to fight right now
 	if target_fighter != null:
 		target_fighter.receive_attack(self.damage)
-		spawn_projectile()
 
 func start_dying():
 	emit_signal("died", {"row": self.row, "col": self.col})
@@ -121,25 +128,36 @@ func set_health(new_health: int):
 const PROJECTILE_HEIGHT = 2.0
 # may also depend on attack speed
 #const PROJECTILE_BASE_SPEED = 2.0
-func spawn_projectile():
+func shoot_projectile_towards_target():
 	var projectile = ProjectileScene.instance()
 	var board = get_parent() as Spatial
 	board.add_child(projectile)
 	projectile.global_transform.origin = board.global_transform.origin
 	projectile.translate(self.translation)
 	projectile.translate(Vector3(0.0, PROJECTILE_HEIGHT, 0.0))
+	projectile.connect("projectile_has_hit", self, "projectile_has_hit")
 	
 	# tween projectile in direction
 	var start_position = projectile.translation
-	var target_position = target_fighter.translation
-	
+	var target_position = Vector3(target_fighter.translation)
+	target_position.y = start_position.y
 	var projectile_tween = projectile.get_node("Tween") as Tween
 	
-	projectile_tween.interpolate_property(projectile, "translation", start_position, target_position, 1.0)
+	projectile_tween.interpolate_property(projectile, "translation", start_position, target_position, projectile_duration)
 	projectile_tween.start()
-
 	
-
-func _on_AttackTimer_timeout() -> void:
+func projectile_has_hit():
+	# this doesn't work if one fighter has multiple projectiles towards different targets active
 	attack()
+
+
+func _on_StartAttackTimer_timeout() -> void:
+	var attack_time = 1.0 / attack_speed
+	$StartAttackTimer.wait_time = attack_time
+	if is_instance_valid(target_fighter):
+		if target_fighter != null:
+			shoot_projectile_towards_target()
+	
+#	$HitAttackTimer.start(projectile_duration)
+
 

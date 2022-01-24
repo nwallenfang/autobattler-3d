@@ -232,7 +232,7 @@ transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.0997
 transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.23512, -3.345 )
 
 [node name="GrassBlade7" parent="Environment/GrassBlades" instance=ExtResource( 15 )]
-transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 12.0079, 4.38691, -7.62214 )
+transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 12.0079, -0.24823, -7.62214 )
 
 [node name="GrassBlade8" parent="Environment/GrassBlades" instance=ExtResource( 15 )]
 transform = Transform( 1.25666, 0, 0.515455, 0, 2.97269, 0, -0.589011, 0, 1.09973, 7.50952, -0.247336, -12.5347 )
