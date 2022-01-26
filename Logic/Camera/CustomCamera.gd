@@ -23,6 +23,7 @@ func move_to_transform_and_fov(target_transform_arg: Transform, target_fov: floa
 	var duration = distance / velocity
 
 	$Tween.reset_all()  
+	$Tween.playback_process_mode = Tween.TWEEN_PROCESS_PHYSICS
 	$Tween.interpolate_method(self, "interpolate_transform", 0.0, 1.0, duration, Tween.TRANS_LINEAR)
 	$Tween.interpolate_property(self, "fov", self.fov, target_fov, duration)
 	$Tween.start()

@@ -7,8 +7,8 @@
 script = ExtResource( 1 )
 team = 1
 max_health = 10
-damage = 5
-attack_speed = 1.5
+damage = 1
+attack_speed = 2.4
 row_index = 4
-col_index = 4
+col_index = 5
 mesh = ExtResource( 2 )

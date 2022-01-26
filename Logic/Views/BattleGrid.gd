@@ -250,7 +250,12 @@ func add_fighter_to_tree_with_pos(fighter_resource: FighterResource, row: int, c
 	$Board.add_child(fighter)
 	data.register_fighter(fighter, row, col)
 	return fighter	
-	
+
+
+func stop_fighting():
+	for fighter in data.get_all_fighters():
+		(fighter as Fighter).is_fighting = false
+
 # magically connected to died signal in Fighter
 func fighter_died(coords: Dictionary):
 	data.clear(coords["row"], coords["col"])
@@ -260,17 +265,19 @@ func fighter_died(coords: Dictionary):
 		state = State.PREPARATION
 		$CanvasLayer/RichTextLabel.visible = true
 		$CanvasLayer/RichTextLabel.text = "You won! :)"
+		stop_fighting()
 		
 	if data.get_friendly_fighters().empty():
 		state = State.PREPARATION
 		$CanvasLayer/RichTextLabel.visible = true
 		$CanvasLayer/RichTextLabel.text = "You lost! :("
+		stop_fighting()
 
 # magically connected to target_fighter_invalid in Fighter	
 func target_fighter_invalid(fighter: Fighter):
 	# looks stupid but I just need to figure out where thsi BUG is
 	var args = {"row": fighter.row, "col": fighter.col, "team": fighter.team}
-	fighter.target_fighter = data.get_closest_fighter(args.row, args.col, args.team)
+	fighter.current_target = data.get_closest_fighter(args.row, args.col, args.team)
 	
 
 func _on_ClickArea_input_event(_camera: Node, event: InputEvent, mouse_position_global: Vector3, _normal: Vector3, _shape_idx: int) -> void:
@@ -316,7 +323,5 @@ func _on_StartButton_pressed() -> void:
 	
 	for fighter in data.get_all_fighters():
 		# find target fighter that this one will attack
-		fighter = fighter as Fighter
-		fighter.target_fighter = data.get_closest_fighter(fighter.row, fighter.col, fighter.team)
-		fighter.is_fighting = true
+		(fighter as Fighter).is_fighting = true
 	

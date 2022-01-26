@@ -2,8 +2,7 @@
 
 [ext_resource path="res://Logic/Combat/Fighter.gd" type="Script" id=1]
 [ext_resource path="res://UI/Healthbar/Healthbar.tscn" type="PackedScene" id=2]
-
-[sub_resource type="CubeMesh" id=1]
+[ext_resource path="res://Assets/Meshes/Bishop.obj" type="ArrayMesh" id=3]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -21,48 +20,78 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "prepare_attack"
+resource_name = "start_attack"
 length = 0.3
 step = 0.01
-tracks/0/type = "transform"
-tracks/0/path = NodePath("Mesh")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.15, 1, 0, 0, 0, 45, 0, 0, 1, 1, 1, 1, 0.3, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh:rotation_degrees")
+tracks/0/keys = {
+"times": PoolRealArray( 0.15 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot_projectile_towards_target"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Mesh")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.15, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 45.593, 0, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ {
+"args": [ 0.0 ],
+"method": "set_mesh_local_rotation_z"
+}, {
+"args": [ 45.0 ],
+"method": "set_mesh_local_rotation_z"
+}, {
+"args": [ -45.0 ],
+"method": "set_mesh_local_rotation_z"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "set_mesh_local_rotation_z"
+}, {
+"args": [ 45.0 ],
+"method": "set_mesh_local_rotation_z"
+}, {
+"args": [ -45.0 ],
+"method": "set_mesh_local_rotation_z"
+} ]
 }
 
 [node name="Fighter" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Mesh" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
+mesh = ExtResource( 3 )
 material/0 = null
 
 [node name="Healthbar" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
 
-[node name="AnimationTimer" type="Timer" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
-anims/prepare_attack = SubResource( 3 )
+anims/start_attack = SubResource( 3 )
 
 [node name="StartAttackTimer" type="Timer" parent="."]
 
-[node name="HitAttackTimer" type="Timer" parent="."]
-
 [connection signal="timeout" from="StartAttackTimer" to="." method="_on_StartAttackTimer_timeout"]
-[connection signal="timeout" from="HitAttackTimer" to="." method="_on_HitAttackTimer_timeout"]

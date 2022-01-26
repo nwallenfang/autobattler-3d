@@ -1,10 +1,21 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://Resources/Schemas/LevelResource.gd" type="Script" id=1]
-[ext_resource path="res://Resources/SimpleEnemyFighter.tres" type="Resource" id=2]
+[ext_resource path="res://Resources/Schemas/FighterResource.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Meshes/pawn_highres.tres" type="ArrayMesh" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+team = 1
+max_health = 1000
+damage = 5
+attack_speed = 1.5
+row_index = 4
+col_index = 4
+mesh = ExtResource( 3 )
 
 [resource]
 script = ExtResource( 1 )
 number_of_rows = 8
 number_of_columns = 8
-enemy_fighters = [ ExtResource( 2 ) ]
+enemy_fighters = [ SubResource( 1 ) ]

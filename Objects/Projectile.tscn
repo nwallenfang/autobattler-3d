@@ -34,7 +34,7 @@ height = 1.0
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20196, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -46,7 +46,7 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 50
-visibility_aabb = AABB( -2.45878, -3.07186, -2.41052, 5.69575, 6.01485, 5.12317 )
+visibility_aabb = AABB( -2.49541, -3.4902, -3.03396, 6.31492, 6.82172, 6.44431 )
 local_coords = false
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 5 )

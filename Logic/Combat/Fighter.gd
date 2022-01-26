@@ -13,11 +13,13 @@ var projectile_duration := 0.3
 # replace this with a proper state machine later, for now it's either fighting or not
 var is_fighting := false setget set_is_fighting
 # the fighter this one will attack
-var target_fighter: Fighter
+var current_target: Fighter
 
 var team = Type.ENEMY
 
 onready var healthbar: Healthbar = $Healthbar as Healthbar
+
+var base_transform: Transform
 
 # fighter shouldn't have this information because we will use the fighter
 # independelty from the grid. But I don't know how to handle the access
@@ -64,6 +66,8 @@ func init(signal_handler: Node, resource: FighterResource) -> void:
 	translation.y = -aabb.position.y
 	$Mesh.translate(translation)
 	$Mesh.transform = $Mesh.transform.scaled(Vector3(200.0, 200.0, 200.0))
+#	base_transform = 
+	
 	var _err
 	_err = connect("died", signal_handler, "fighter_died")
 	_err = connect("target_fighter_invalid", signal_handler, "target_fighter_invalid")
@@ -99,20 +103,6 @@ func set_is_fighting(value: bool):
 func receive_attack(enemy_damage: int):
 	self.health -= enemy_damage
 
-# same for this, this is just a placeholder for more complex behavior
-func attack():
-	if not is_instance_valid(target_fighter):  # no target to fight
-		# passing yourself as an argument in a signal feels like letting yourself 
-		# fall while facing a cliff's edge, just hoping there is some benevolent
-		# node listening that will catch you.
-		# (your good ol' grandparent BattleGrid's got you in this case, phew)
-		# The dreamy difference being that nothing has happened when you find
-		# yourself uncaught at the foot of the mountain)
-		emit_signal("target_fighter_invalid", self)
-		
-	# target_fighter will be null if there is noone to fight right now
-	if target_fighter != null:
-		target_fighter.receive_attack(self.damage)
 
 func start_dying():
 	emit_signal("died", {"row": self.row, "col": self.col})
@@ -129,35 +119,103 @@ const PROJECTILE_HEIGHT = 2.0
 # may also depend on attack speed
 #const PROJECTILE_BASE_SPEED = 2.0
 func shoot_projectile_towards_target():
+	if not is_instance_valid(current_target):
+		# current target has been destroyed before we even started shooting.
+		# unfortunate.
+		# just reset the timer and find a new target.
+		# or it could be possible the fight is over so check for that as well
+		# before finding a new target.
+		if self.is_fighting:
+			$StartAttackTimer.start()
+		return
+	if current_target == null:
+		push_error("current_target is null in attack Timer, what does this mean?")
 	var projectile = ProjectileScene.instance()
 	var board = get_parent() as Spatial
 	board.add_child(projectile)
 	projectile.global_transform.origin = board.global_transform.origin
+	projectile.target_fighter = current_target
 	projectile.translate(self.translation)
 	projectile.translate(Vector3(0.0, PROJECTILE_HEIGHT, 0.0))
 	projectile.connect("projectile_has_hit", self, "projectile_has_hit")
 	
 	# tween projectile in direction
 	var start_position = projectile.translation
-	var target_position = Vector3(target_fighter.translation)
+	var target_position = Vector3(current_target.translation)
 	target_position.y = start_position.y
 	var projectile_tween = projectile.get_node("Tween") as Tween
-	
 	projectile_tween.interpolate_property(projectile, "translation", start_position, target_position, projectile_duration)
 	projectile_tween.start()
-	
-func projectile_has_hit():
-	# this doesn't work if one fighter has multiple projectiles towards different targets active
-	attack()
 
+
+func projectile_has_hit(target_fighter: Fighter):
+	# target_fighter will be invalid if the fighter this projectile was shot towards
+	# is already dead
+	if is_instance_valid(target_fighter):
+		if not target_fighter == null:
+			target_fighter.receive_attack(self.damage)
+		else:
+			push_error("target is null, unexpected behavior in projectile_has_hit")
+
+
+# basically this is a queue of 3 actions
+# 1. attack animation
+# 2. shoot projectile
+# 3. hit with projectile
+# the only I parameter I should have to define is the time between attack_animations
+# everything should be triggered from there. This means that I should only need a single timer.
+
+# what I don't like about timing the attack *animation*, is that the animation is purely visual and
+# should have no bearing on the game logic. (this is important if we want to simulate / speed up fights)
+# we could time the shooting of the projectile instead. Then the question becomes how to trigger
+# the pre-attack animation.
+
+
+# transforms are pain
+# I hope this could be simplified with more knowledge
+func look_towards_target_old():
+	# IM so stuck here I DONT UNDERSTAND THIS
+	var start_position = self.translation
+	var target_position = to_local(current_target.translation)
+	var direction = (target_position - start_position).normalized()
+	var target_in_plane_direction = Vector2(direction.x, direction.z).normalized()
+	var current_look_direction = Vector2($Mesh.transform.basis.z.x, $Mesh.transform.basis.z.z) 
+	
+	print("direction to target: ", direction) 
+	print("current_look_direction: ", current_look_direction) 
+	var angle = current_look_direction.angle_to(target_in_plane_direction)  # + PI/2
+	print(angle)
+	# $Mesh.rotate_object_local(Vector3(0, 1, 0), angle)
+	rotate_object_local(Vector3(0, 1, 0), angle)
+	
+func look_towards_target():
+	# IM so stuck here I DONT UNDERSTAND THIS
+
+#	rotate_object_local(Vector3(0, 1, 0), angle)
+	pass
+	
+func set_mesh_local_rotation_z(angle: float):
+#	$Mesh.rotate_object_local(Vector3(0, 0, 1), deg2rad(angle))
+	rotate_object_local(Vector3(1, 0, 0), deg2rad(angle))
 
 func _on_StartAttackTimer_timeout() -> void:
+	# see if our current target is still valid, else get another one by calling towards the parent
+	if not is_instance_valid(current_target):
+		# passing yourself as an argument in a signal feels like letting yourself 
+		# fall while facing a cliff's edge, just hoping there is some benevolent
+		# node listening that will catch you.
+		# (your good old grandparent BattleGrid's got you in this case, phew)
+		# The dreamy difference being that nothing has happened should you find
+		# yourself uncaught at the foot of the mountain.
+		emit_signal("target_fighter_invalid", self)
+	
 	var attack_time = 1.0 / attack_speed
 	$StartAttackTimer.wait_time = attack_time
-	if is_instance_valid(target_fighter):
-		if target_fighter != null:
-			shoot_projectile_towards_target()
-	
-#	$HitAttackTimer.start(projectile_duration)
+
+	look_towards_target()
+
+	# start Attack animation, in the animation player shoot_projectile_towards_target will be called
+	# TODO rotate towards target
+	$AnimationPlayer.play("start_attack")
 
 
