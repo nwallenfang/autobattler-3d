@@ -325,3 +325,9 @@ func _on_StartButton_pressed() -> void:
 		# find target fighter that this one will attack
 		(fighter as Fighter).is_fighting = true
 	
+
+
+func _on_StartButton2_pressed() -> void:
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(self)
+	var blu = ResourceSaver.save("res://Test/TestGrid.tscn", packed_scene)

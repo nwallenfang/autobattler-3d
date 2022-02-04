@@ -10,5 +10,5 @@ max_health = 10
 damage = 1
 attack_speed = 2.4
 row_index = 4
-col_index = 5
+col_index = 6
 mesh = ExtResource( 2 )

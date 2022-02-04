@@ -1,0 +1,9 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Materials/mauer_normal.png" type="Texture" id=1]
+
+[resource]
+albedo_color = Color( 0.505882, 0.286275, 0.105882, 1 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 1 )

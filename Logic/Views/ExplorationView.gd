@@ -49,10 +49,13 @@ func transition_to_battlegrid():
 	# but it will only be made visible once the camera movement is done
 	
 	Game.player.CONTROLS_ENABLED = false
-	
+	# Transform = (Rotation, Scale, Translation) hat Methoden rotated, scaled, translated
 	# target is the camera translated up
-	var target_transform: Transform = $Camera.transform.translated(battle_grid_cam_translation)
-	target_transform.basis = battle_grid.get_node("CamPivot").transform.basis
+#	var target_transform: Transform = $Camera.transform.translated(battle_grid_cam_translation)
+#	target_transform.basis = battle_grid.get_node("CamPivot").transform.basis
+#	var target_transform: Transform = $Camera.transform.rotated($Camera.transform.basis.z, deg2rad(90))
+	$Camera.transform = $Camera.transform.rotated(Vector3.DOWN, deg2rad(90))
+	var target_transform: Transform = $Camera.transform.rotated($Camera.transform.basis.z, deg2rad(90))
 	
 	$Camera.move_to_transform_and_fov(target_transform, ortho_cam.fov)
 	# add battle grid to scene

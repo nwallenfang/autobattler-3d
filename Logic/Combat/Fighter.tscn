@@ -38,42 +38,19 @@ tracks/0/keys = {
 } ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("Mesh")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
-"args": [ 0.0 ],
+"args": [ -45.0 ],
 "method": "set_mesh_local_rotation_z"
 }, {
 "args": [ 45.0 ],
-"method": "set_mesh_local_rotation_z"
-}, {
-"args": [ -45.0 ],
-"method": "set_mesh_local_rotation_z"
-} ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "set_mesh_local_rotation_z"
-}, {
-"args": [ 45.0 ],
-"method": "set_mesh_local_rotation_z"
-}, {
-"args": [ -45.0 ],
 "method": "set_mesh_local_rotation_z"
 } ]
 }

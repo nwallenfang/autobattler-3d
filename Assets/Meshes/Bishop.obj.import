@@ -14,7 +14,7 @@ dest_files=[ "res://.import/Bishop.obj-4f6cbe8715a611c1e7cc1ed7366b9a87.mesh", "
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 0.005, 0.005, 0.005 )
+scale_mesh=Vector3( 1, 1, 1 )
 offset_mesh=Vector3( 0, 0, 0 )
 octahedral_compression=true
 optimize_mesh_flags=4286

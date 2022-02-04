@@ -11,6 +11,7 @@ var state = State.DEFAULT
 # movement parameters
 export var CONTROLS_ENABLED := true
 export var move_acceleration = 390.0
+export var dash_acceleration = 10000.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 7200.0
 export var jump_total_number_of_frames = 3
@@ -29,15 +30,18 @@ func handle_input(delta):
 	
 	# make move direction relative to camera instead of relative to player by rotating
 #	move_direction = move_direction.rotated(Vector3.UP, spring_arm.rotation.y).normalized()
-	
-	# TODO check if move_direction is truly non zero if no key pressed
+
 	if is_on_floor():
-		add_acceleration(move_acceleration * move_direction)
+		if Input.is_action_just_pressed("dash"):
+			print("dash")
+			add_acceleration(dash_acceleration * move_direction)
+		else:
+			add_acceleration(move_acceleration * move_direction)
 	else:
 		# get ourselves some nice air strafing
 		add_acceleration(air_acceleration * move_direction)
 	
-	var start_jumping  = is_on_floor() and Input.is_action_just_pressed("jump")
+	var start_jumping = is_on_floor() and Input.is_action_just_pressed("jump")
 	if start_jumping:
 		jump_frame_count = 0
 		# set snap vector in super class

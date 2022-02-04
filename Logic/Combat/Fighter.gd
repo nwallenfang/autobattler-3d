@@ -189,14 +189,15 @@ func look_towards_target_old():
 	rotate_object_local(Vector3(0, 1, 0), angle)
 	
 func look_towards_target():
-	# IM so stuck here I DONT UNDERSTAND THIS
-
-#	rotate_object_local(Vector3(0, 1, 0), angle)
-	pass
+	var target_proj = Vector3(current_target.transform.origin.x, 
+							  transform.origin.y, 
+							  current_target.transform.origin.z)
+	look_at(target_proj, Vector3.UP)
 	
 func set_mesh_local_rotation_z(angle: float):
 #	$Mesh.rotate_object_local(Vector3(0, 0, 1), deg2rad(angle))
-	rotate_object_local(Vector3(1, 0, 0), deg2rad(angle))
+	transform = transform.orthonormalized()
+	rotate_object_local(Vector3(1.0, 0.0, 0.0), deg2rad(angle))
 
 func _on_StartAttackTimer_timeout() -> void:
 	# see if our current target is still valid, else get another one by calling towards the parent
@@ -208,14 +209,15 @@ func _on_StartAttackTimer_timeout() -> void:
 		# The dreamy difference being that nothing has happened should you find
 		# yourself uncaught at the foot of the mountain.
 		emit_signal("target_fighter_invalid", self)
+		look_towards_target()
 	
 	var attack_time = 1.0 / attack_speed
 	$StartAttackTimer.wait_time = attack_time
 
-	look_towards_target()
 
 	# start Attack animation, in the animation player shoot_projectile_towards_target will be called
 	# TODO rotate towards target
 	$AnimationPlayer.play("start_attack")
+	print("play")
 
 
