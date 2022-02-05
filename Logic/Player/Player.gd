@@ -11,13 +11,17 @@ var state = State.DEFAULT
 # movement parameters
 export var CONTROLS_ENABLED := true
 export var move_acceleration = 390.0
-export var dash_acceleration = 10000.0
+export var dash_acceleration = 3000.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 7200.0
 export var jump_total_number_of_frames = 3
 export var gravity = -25.0
 export var ground_dampening = 0.7
 
+
+func _ready() -> void:
+#	$DustTrack.set_as_toplevel(true)
+	pass
 
 var jump_frame_count := -1
 func handle_input(delta):
@@ -33,8 +37,11 @@ func handle_input(delta):
 
 	if is_on_floor():
 		if Input.is_action_just_pressed("dash"):
-			print("dash")
+			# TODO emit
+			$DustTrack.emitting = true
 			add_acceleration(dash_acceleration * move_direction)
+			yield(get_tree().create_timer(0.7), "timeout")
+			$DustTrack.emitting = false
 		else:
 			add_acceleration(move_acceleration * move_direction)
 	else:

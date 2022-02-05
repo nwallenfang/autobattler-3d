@@ -1,28 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Meshes/player.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Logic/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Objects/DustTrack.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 1, 0.83182, 1 )
-
-[sub_resource type="Shader" id=10]
-code = "shader_type particles;
-
-varying float alpha_scissor;
-varying vec3 vert_pos;
-
-void vertex() {
-//	alpha_scissor = INSTANCE_CUSTOM.y;
-}
-
-void fragment() {
-}"
-
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
-
-[sub_resource type="SphereMesh" id=12]
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -48,6 +31,5 @@ collision_layer = 2
 transform = Transform( 1, 0, 0, 0, 2.87018, 0, 0, 0, 0.443808, 0.0655214, 2.37882, 0.092349 )
 shape = SubResource( 9 )
 
-[node name="Dust" type="Particles" parent="."]
-process_material = SubResource( 11 )
-draw_pass_1 = SubResource( 12 )
+[node name="DustTrack" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.773967, -0.870413 )
