@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Meshes/cloud.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.0697279, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 10, 1 )
+spread = 1.78
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.4
+scale_curve = SubResource( 2 )
+
+[node name="CloudEmitter" type="Particles"]
+transform = Transform( 2.41141, 0, 0, 0, 2.41141, 0, 0, 0, 2.41141, 0, 0, 0 )
+amount = 2
+lifetime = 20.0
+visibility_aabb = AABB( -10.5292, -14.0763, -11.1412, 69.5792, 31.94, 22.5863 )
+process_material = SubResource( 3 )
+draw_pass_1 = ExtResource( 1 )

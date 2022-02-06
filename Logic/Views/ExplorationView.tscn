@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Objects/Clouds.gd" type="Script" id=1]
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Logic/Views/ExplorationView.gd" type="Script" id=18]
 [ext_resource path="res://Logic/Camera/CustomCamera.gd" type="Script" id=19]
 [ext_resource path="res://Objects/Flowerpot.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Objects/CloudEmitter.tscn" type="PackedScene" id=21]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.1075, 0.317125, 0.43, 1 )
@@ -155,7 +156,7 @@ shape = SubResource( 5 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.97437, 0.224951, 0, -0.224951, 0.97437, 0, 8.8182, 15.4886 )
 current = true
-far = 250.0
+far = 1264.9
 script = ExtResource( 19 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Camera"]
@@ -327,6 +328,9 @@ material/0 = null
 
 [node name="flowerpot" parent="." instance=ExtResource( 20 )]
 transform = Transform( 2.92302, 0, -7.67141, 0, 8.27307, 0, 7.23983, 0, 3.09727, 34, -0.048924, -12.7863 )
+
+[node name="CloudEmitter" parent="." instance=ExtResource( 21 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -32.0749, 37.4506, -300.558 )
 
 [connection signal="tween_all_completed" from="Camera/Tween" to="Camera" method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Collectibles/FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
