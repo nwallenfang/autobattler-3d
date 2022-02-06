@@ -9,9 +9,10 @@ Some stuff I would like to look into in this project:
   - used for transitioning between exploration and combat
 - [ ] Texture blending using noise
   - used to mix grass and dirt textures
-- [ ] Making pretty clouds
 - [ ] Transparency type shader effect
   - Used when the player model is covered by environment
+- [x] Making pretty clouds
+  - well, they're cartoony but work 
 - [x] Using 3D Particle shaders
   - used for dust when the player is dashing
 - [x] Using Vertex displacement shaders
