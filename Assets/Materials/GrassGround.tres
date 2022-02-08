@@ -53,19 +53,15 @@ void fragment() {
 
 [sub_resource type="StreamTexture" id=9]
 flags = 31
-load_path = "res://.import/ground_0032_color_2k.jpg-e06f78125eb99f3558500e901b82c364.s3tc.stex"
 
 [sub_resource type="StreamTexture" id=10]
 flags = 7
-load_path = "res://.import/ground_0036_ao_2k.jpg-bdad4577f17de50119e9bab631fb9c5b.s3tc.stex"
 
 [sub_resource type="StreamTexture" id=11]
 flags = 15
-load_path = "res://.import/ground_0032_normal_2k.png-a649cf7de98b78414a30bb53610f3fc9.s3tc.stex"
 
 [sub_resource type="StreamTexture" id=12]
 flags = 15
-load_path = "res://.import/ground_0032_roughness_2k.jpg-93cfd236725de427e28091fdcacaef91.s3tc.stex"
 
 [resource]
 shader = SubResource( 8 )

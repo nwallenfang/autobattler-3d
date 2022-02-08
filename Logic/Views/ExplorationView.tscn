@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Objects/Clouds.gd" type="Script" id=1]
 [ext_resource path="res://UI/FPSCounter.gd" type="Script" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://Objects/Flowerpot.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Objects/CloudEmitter.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Assets/Meshes/plant.obj" type="ArrayMesh" id=22]
+[ext_resource path="res://Objects/Winter.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Ring.tscn" type="PackedScene" id=24]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.1075, 0.317125, 0.43, 1 )
@@ -341,6 +343,12 @@ mesh = ExtResource( 22 )
 material/0 = null
 material/1 = null
 material/2 = null
+
+[node name="Winter" parent="." instance=ExtResource( 23 )]
+transform = Transform( 2.46488, 0, 0.818951, 0, 2.59736, 0, -0.818951, 0, 2.46488, 146.106, -0.0672989, -27.5835 )
+
+[node name="Ring" parent="." instance=ExtResource( 24 )]
+transform = Transform( -1.68114, 0, 2.58043, 0, 3.07975, 0, -2.58043, 0, -1.68114, 82.0935, -1.05961, 1.94957 )
 
 [connection signal="tween_all_completed" from="Camera/Tween" to="Camera" method="_on_Tween_tween_all_completed"]
 [connection signal="body_entered" from="Collectibles/FunkySphere/CollectDetection" to="." method="_on_CollectDetection_body_entered"]
