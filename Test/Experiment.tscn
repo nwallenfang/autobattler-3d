@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Test/Experiment2.gd" type="Script" id=1]
+[ext_resource path="res://Test/Cube_6.PNG" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 2 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Cube" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="rotate_x" type="Button" parent="CanvasLayer"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "rotate x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_y" type="Button" parent="CanvasLayer"]
+margin_top = 28.0
+margin_right = 63.0
+margin_bottom = 48.0
+text = "rotate_y"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_z" type="Button" parent="CanvasLayer"]
+margin_left = 2.0
+margin_top = 59.0
+margin_right = 65.0
+margin_bottom = 79.0
+text = "rotate_z"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_xl" type="Button" parent="CanvasLayer"]
+margin_left = 2.0
+margin_top = 100.0
+margin_right = 63.0
+margin_bottom = 120.0
+text = "rotate x_local"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_xl2" type="Button" parent="CanvasLayer"]
+margin_left = 117.0
+margin_top = 93.0
+margin_right = 214.0
+margin_bottom = 113.0
+text = "rotate x_local"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_yl" type="Button" parent="CanvasLayer"]
+margin_left = 7.0
+margin_top = 134.0
+margin_right = 106.0
+margin_bottom = 154.0
+text = "rotate_y_local"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rotate_zl" type="Button" parent="CanvasLayer"]
+margin_left = 16.0
+margin_top = 170.0
+margin_right = 115.0
+margin_bottom = 190.0
+text = "rotate_z_local"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+margin_left = 2.0
+margin_top = 522.0
+margin_right = 202.0
+margin_bottom = 602.0
+text = "Experiment, um zu verstehen wie rotate_x() funktioniert und wie es sich zu rotate_local unterscheidet"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
+margin_left = 804.0
+margin_top = 500.0
+margin_right = 1024.0
+margin_bottom = 600.0
+text = "Man kann sich x bspw. so vorstellen als Basisvektor, dass er angibt, was \"links/rechts\" für dieses Objekt bedeutet, also der x-Vektor zeigt nach links, y nach oben, etc."
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.00177927, -0.330218, 0.943903, 0.000622463, 0.943905, 0.330217, -0.999998, 5.82076e-11, 0.00188501, 7.15626, 2.98577, 0 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97484, 4.40584 )
+
+[connection signal="pressed" from="CanvasLayer/rotate_x" to="." method="_on_rotate_x_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_y" to="." method="_on_rotate_y_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_z" to="." method="_on_rotate_z_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_xl" to="." method="_on_rotate_xl_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_xl2" to="." method="_on_rotate_xl2_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_yl" to="." method="_on_rotate_yl_pressed"]
+[connection signal="pressed" from="CanvasLayer/rotate_zl" to="." method="_on_rotate_zl_pressed"]

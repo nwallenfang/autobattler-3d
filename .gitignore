@@ -13,6 +13,3 @@ data_*/
 
 # VS Code files
 .vscode/
-
-# directory with automatically generated scenes
-Test/
