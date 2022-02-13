@@ -7,7 +7,7 @@ const EXPECTED_FPS := 60
 
 export var FRICTION := 0.85
 export var OLD_DEFAULT_ACC_STRENGTH := 3500.0
-export var GRAVITY := 650.0
+export var GRAVITY := 450.0
 
 var velocity := Vector3.ZERO 
 var acceleration := Vector3.ZERO 

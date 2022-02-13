@@ -14,8 +14,7 @@ export var move_acceleration = 390.0
 export var dash_acceleration = 3000.0
 export var air_acceleration = 120.0
 export var jump_total_acceleration = 7200.0
-export var jump_total_number_of_frames = 3
-export var gravity = -25.0
+export var jump_total_number_of_frames = 6
 export var ground_dampening = 0.7
 
 

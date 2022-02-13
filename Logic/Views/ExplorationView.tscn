@@ -38,6 +38,8 @@ background_sky = SubResource( 9 )
 background_sky_custom_fov = 115.5
 ambient_light_color = Color( 0.8, 0.839216, 0.921569, 1 )
 ambient_light_energy = 0.5
+glow_enabled = true
+glow_strength = 1.23
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 423.538, 27.6547, 0.843098 )
@@ -346,6 +348,7 @@ material/2 = null
 
 [node name="Winter" parent="." instance=ExtResource( 23 )]
 transform = Transform( 2.46488, 0, 0.818951, 0, 2.59736, 0, -0.818951, 0, 2.46488, 146.106, -0.0672989, -27.5835 )
+visible = false
 
 [node name="Ring" parent="." instance=ExtResource( 24 )]
 transform = Transform( -1.68114, 0, 2.58043, 0, 3.07975, 0, -2.58043, 0, -1.68114, 82.0935, -1.05961, 1.94957 )
